@@ -1,0 +1,34 @@
+#!/bin/sh
+
+master=$1
+password=$2
+pgver=$3
+
+if [ -z $master ]; then
+  echo 'Please provide master IP'
+  exit 1
+fi
+
+DATA_DIRECTORY="/var/lib/postgresql/${pgver}/main"
+
+sudo /usr/sbin/service /postgresql stop
+
+rm -rf $DATA_DIRECTORY
+/usr/bin/pg_basebackup -h $master -D ${DATA_DIRECTORY} -xlog-method=stream -U replicator -v -w
+
+if [ ! -L /var/lib/postgresql/${pgver}/main/server.crt ]; then 
+  ln -s /etc/ssl/certs/ssl-cert-snakeoil.pem /var/lib/postgresql/${pgver}/main/server.crt
+fi
+
+if [ ! -L /var/lib/postgresql/${pgver}/main/server.key ]; then 
+  ln -s /etc/ssl/private/ssl-cert-snakeoil.key /var/lib/postgresql/${pgver}/main/server.key
+fi
+
+# tips: this file could be create on the master and retrieve with pg_basebackup
+cat > ${DATA_DIRECTORY}/recovery.conf <<- EOF
+standby_mode = 'on'
+primary_conninfo = 'host=${master} port=5432 user=replicator password=${password} sslmode=require'
+trigger_file = '/tmp/postgresql.trigger'
+EOF
+
+sudo /usr/sbin/service postgresql start

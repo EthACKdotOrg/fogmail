@@ -1,0 +1,11 @@
+#!/bin/dash
+# setup tahoe, start it if needed
+
+# Once tahoe is OK, start other stuff
+service postgresql start
+service postfix start
+service dovecot start
+service tor start
+
+# stupid while in order to keep it up
+while true; do sleep 1; done
