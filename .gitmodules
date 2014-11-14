@@ -28,9 +28,6 @@
 [submodule "puppet/modules/stdlib"]
 	path = puppet/modules/stdlib
 	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
-[submodule "puppet/modules/tor"]
-	path = puppet/modules/tor
-	url = https://github.com/inkblot/puppet-tor.git
 [submodule "puppet/modules/sudo"]
 	path = puppet/modules/sudo
 	url = https://github.com/saz/puppet-sudo
