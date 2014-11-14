@@ -1,0 +1,36 @@
+[submodule "puppet/modules/apache"]
+	path = puppet/modules/apache
+	url = https://github.com/puppetlabs/puppetlabs-apache.git
+[submodule "puppet/modules/apt"]
+	path = puppet/modules/apt
+	url = https://github.com/puppetlabs/puppetlabs-apt.git
+[submodule "puppet/modules/augeasproviders_core"]
+	path = puppet/modules/augeasproviders_core
+	url = https://github.com/hercules-team/augeasproviders_core.git
+[submodule "puppet/modules/augeasproviders_shellvar"]
+	path = puppet/modules/augeasproviders_shellvar
+	url = https://github.com/hercules-team/augeasproviders_shellvar.git
+[submodule "puppet/modules/augeasproviders_ssh"]
+	path = puppet/modules/augeasproviders_ssh
+	url = https://github.com/hercules-team/augeasproviders_ssh.git
+[submodule "puppet/modules/concat"]
+	path = puppet/modules/concat
+	url = https://github.com/puppetlabs/puppetlabs-concat.git
+[submodule "puppet/modules/dovecot"]
+	path = puppet/modules/dovecot
+	url = https://github.com/mjhas/dovecot.git
+[submodule "puppet/modules/postfix"]
+	path = puppet/modules/postfix
+	url = https://github.com/thias/puppet-postfix.git
+[submodule "puppet/modules/postgresql"]
+	path = puppet/modules/postgresql
+	url = https://github.com/puppetlabs/puppetlabs-postgresql.git
+[submodule "puppet/modules/stdlib"]
+	path = puppet/modules/stdlib
+	url = https://github.com/puppetlabs/puppetlabs-stdlib.git
+[submodule "puppet/modules/tor"]
+	path = puppet/modules/tor
+	url = https://github.com/inkblot/puppet-tor.git
+[submodule "puppet/modules/sudo"]
+	path = puppet/modules/sudo
+	url = https://github.com/saz/puppet-sudo
