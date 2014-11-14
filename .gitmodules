@@ -31,3 +31,6 @@
 [submodule "puppet/modules/tor"]
 	path = puppet/modules/tor
 	url = git@github.com:EthACKdotOrg/puppet-tor.git
+[submodule "puppet/modules/dovecot"]
+	path = puppet/modules/dovecot
+	url = git@github.com:EthACKdotOrg/dovecot.git
