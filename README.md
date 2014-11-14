@@ -66,6 +66,8 @@ $ git submodule init
 $ git submodule update
 ```
 
+**Note** it's possible you get some problems for two repositories: tor and dovecot. We're using our own version for now, as we had to modify them. Pull-requests are on their way.
+
 ### Start a Docker
 Ensure the Dockerfile points to the right template (it's a symlink in order to make it more human):
 
@@ -99,8 +101,8 @@ root@...:/# startall &
 ``` Bash
 $ docker run -d -t  ethack/mailserver
 $ docker ps
-CONTAINER ID        IMAGE                      COMMAND                CREATED             STATUS              PORTS                                        NAMES
-c5cbd7376a29        ethack/mailserver:latest   "/usr/local/sbin/sta   3 seconds ago       Up 2 seconds        443/tcp, 465/tcp, 80/tcp, 993/tcp, 995/tcp   furious_goldstine
+CONTAINER ID        IMAGE                      …
+c5cbd7376a29        ethack/mailserver:latest   …
 
 $ docker logs c5cbd7376a29
 $ docker kill c5cbd7376a29
