@@ -20,7 +20,7 @@ All the softwares are open and free. Among them, we can name:
 Also, all the configurations will be open. Well, you won't get hand on the private keys for SSL certificates, of course. But all the other parts will be accessible. Here.
 
 ## Community
-If the entry points will be managed by a couple of people (@cjeanneret mostly), the design will allow people to help. Mostly for mail storage. Using tahoe-lafs, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
+If the entry points will be managed by a couple of people (@SwissTengu mostly), the design will allow people to help. Mostly for mail storage. Using tahoe-lafs, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
 
 ## Decentralization
 Mail aren't good for decentralization. And it will most probably never be. But still, we do have ways to do some nice things:
@@ -34,7 +34,7 @@ Probably the most interesting part. We want your communications to be encrypted.
 
 There are already hacks on postfix in order to encrypt emails — we will use them. Process will be simple: upon account creation, you might either provide a public key, or a new pair might be generated (locally, provided there actuall are efficient javascript libraries). We won't get hand on the private key. Ever. (Meaning: if you lose your key, well, you lose all your old emails… duh.)
 
-Also, each node will be secured at the best possible. Running on closed environment, with no remote access. Updates will be followed closely (that's @cjeanneret job for years now).
+Also, each node will be secured at the best possible. Running on closed environment, with no remote access. Updates will be followed closely (that's @SwissTengu job for years now).
 
 Also, all communication between nodes will be encrypted. Dovecot replication support SSL over TCP, and Tahoe already communicates with encrypted channels (and data are encrypted on the client side, then sent to the storage).
 
