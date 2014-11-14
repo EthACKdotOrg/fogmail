@@ -1,16 +1,3 @@
-# Needed modules
-# - https://github.com/puppetlabs/puppetlabs-apache.git
-# - https://github.com/puppetlabs/puppetlabs-apt.git
-# - https://github.com/hercules-team/augeasproviders_core.git
-# - https://github.com/hercules-team/augeasproviders_shellvar
-# - https://github.com/hercules-team/augeasproviders_ssh
-# - https://github.com/puppetlabs/puppetlabs-concat.git
-# - https://github.com/mjhas/dovecot.git
-# - https://github.com/thias/puppet-postfix.git
-# - https://github.com/puppetlabs/puppetlabs-postgresql.git
-# - https://github.com/puppetlabs/puppetlabs-stdlib.git
-# - https://github.com/inkblot/puppet-tor.git
-# - https://github.com/saz/puppet-sudo
 #
 # !! Receipt based on Jessie for a Mailserver, part of EthACK Mail Infrastructure
 #
@@ -115,6 +102,15 @@ class {'::tor':
           hsport => 465,
           origin => '127.0.0.1:465', # SMTPs
         },
+      ]
+    },
+    {
+      name  => 'postgresql',
+      ports => [
+        {
+          hsport => 5432,
+          origin => '127.0.0.1:5432',
+        }
       ]
     },
     {
