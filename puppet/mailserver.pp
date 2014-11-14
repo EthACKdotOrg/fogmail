@@ -176,13 +176,60 @@ class {'::postgresql::server':
 }
 
 # Dovecot
-include ::dovecot
+file {'/etc/ssl/private/dovecot.key':
+  ensure => file,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => '/ssl/dovecot.key',
+}->
+file {'/etc/ssl/certs/dovecot.crt':
+  ensure => file,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0644',
+  source => '/ssl/dovecot.crt',
+}->
+class {'::dovecot': }
+class {'::dovecot::ssl':
+  ssl          => 'yes',
+  ssl_keyfile  => '/etc/ssl/private/dovecot.key',
+  ssl_certfile => '/etc/ssl/certs/dovecot.crt',
+}
 class {'::dovecot::master':
   postfix => yes,
 }
 include ::dovecot::mail
 
 # Postfix
+file {'/etc/postfix/virtual.cf':
+  ensure => file,
+  owner  => 'root',
+  group  => 'postfix',
+  mode   => '0640',
+  source => '/postfix/virtual.cf',
+}
+file {'/etc/postfix/mailboxes.cf':
+  ensure => file,
+  owner  => 'root',
+  group  => 'postfix',
+  mode   => '0640',
+  source => '/postfix/mailboxes.cf',
+}
+class {'::postfix::server':
+  myhostname              => 'mx.cloudfog.org',
+  mydomain                => 'cloudfog.org',
+  mydestination           => "${::fqdn}, \$myhostname",
+  inet_interfaces         => 'all',
+  message_size_limit      => '15360000', # 15MB
+  mail_name               => 'fogmail',
+  virtual_alias_maps      => [
+    'pgsql:/etc/postfix/virtual.cf',
+  ],
+  virtual_mailbox_maps    => [
+    'pgsql:/etc/postfix/mailboxes.cf',
+  ],
+}
 
 # startup script for docker
 file {'/usr/local/sbin/startall':
