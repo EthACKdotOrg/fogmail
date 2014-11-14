@@ -10,17 +10,17 @@ Wow, that's a lot of buzz-words so let us explain the concept.
 
 ## Opensource
 All the softwares are open and free. Among them, we can name:
-* dovecot
-* postfix
-* spamassassin (maybe, not sur to use it)
-* tor
-* tahoe-lafs
-* puppet
+* [dovecot](http://dovecot.org/)
+* [postfix](http://www.postfix.org/)
+* [spamassassin](https://spamassassin.apache.org/) (maybe, not sur to use it)
+* [tor](https://www.torproject.org/)
+* [tahoe-lafs](https://tahoe-lafs.org/trac/tahoe-lafs)
+* [puppet](http://puppetlabs.com/)
 
 Also, all the configurations will be open. Well, you won't get hand on the private keys for SSL certificates, of course. But all the other parts will be accessible. Here.
 
 ## Community
-If the entry points will be managed by a couple of people (@SwissTengu mostly), the design will allow people to help. Mostly for mail storage. Using tahoe-lafs, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
+If the entry points will be managed by a couple of people ([@SwissTengu](https://twitter.com/swisstengu/) mostly), the design will allow people to help. Mostly for mail storage. Using tahoe-lafs, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
 
 ## Decentralization
 Mail aren't good for decentralization. And it will most probably never be. But still, we do have ways to do some nice things:
@@ -32,16 +32,16 @@ As previously stated, the main decentralized part will be for the storage. Proba
 ## Security
 Probably the most interesting part. We want your communications to be encrypted. All of them. Even if you don't send them encrypted.
 
-There are already hacks on postfix in order to encrypt emails — we will use them. Process will be simple: upon account creation, you might either provide a public key, or a new pair might be generated (locally, provided there actuall are efficient javascript libraries). We won't get hand on the private key. Ever. (Meaning: if you lose your key, well, you lose all your old emails… duh.)
+There are already [hacks](https://github.com/ajgon/gpg-mailgate) on postfix in order to encrypt emails — we will use them. Process will be simple: upon account creation, you might either provide a public key, or a new pair might be generated (locally, provided there actuall are efficient javascript libraries). We won't get hand on the private key. Ever. (Meaning: if you lose your key, well, you lose all your old emails… duh.)
 
-Also, each node will be secured at the best possible. Running on closed environment, with no remote access. Updates will be followed closely (that's @SwissTengu job for years now).
+Also, each node will be secured at the best possible. Running on closed environment, with no remote access. Updates will be followed closely (that's [@SwissTengu](https://twitter.com/swisstengu/) job for years now).
 
-Also, all communication between nodes will be encrypted. Dovecot replication support SSL over TCP, and Tahoe already communicates with encrypted channels (and data are encrypted on the client side, then sent to the storage).
+Also, all communication between nodes will be encrypted. [Dovecot replication](http://wiki2.dovecot.org/Replication) support SSL over TCP, and Tahoe already communicates with encrypted channels (and data are encrypted on the client side, then sent to the storage).
 
 ## Access to emails
 Well, yes, this may be interesting for you as well ;).
 
-Mostly, we will focus on imaps/pop3s/smpts services. This will allow you to use Outlook (with some PGP plugin), Thunderbird (with Enigmail), Mail (with gpgtools). We will also have a look at existing webmails in order to provide an access. But we're not really happy with that. For your private key will be available in some way from the browser. And this is bad. Really.
+Mostly, we will focus on imaps/pop3s/smpts services. This will allow you to use Outlook (with some [PGP plugin](https://github.com/dejavusecurity/OutlookPrivacyPlugin)), Thunderbird (with [Enigmail](https://www.enigmail.net/home/index.php)), Mail (with [GPGTools](https://gpgtools.org/)). We will also have a look at existing webmails in order to provide an access. But we're not really happy with that. For your private key will be available in some way from the browser. And this is bad. Really.
 
 So, maybe, no webmail. We do not trust the html5 local storage thing. You shouldn't as well.
 
