@@ -31,3 +31,6 @@
 [submodule "puppet/modules/sudo"]
 	path = puppet/modules/sudo
 	url = https://github.com/saz/puppet-sudo
+[submodule "puppet/modules/tor"]
+	path = puppet/modules/tor
+	url = git@github.com:EthACKdotOrg/puppet-tor.git
