@@ -16,9 +16,6 @@
 [submodule "puppet/modules/concat"]
 	path = puppet/modules/concat
 	url = https://github.com/puppetlabs/puppetlabs-concat.git
-[submodule "puppet/modules/dovecot"]
-	path = puppet/modules/dovecot
-	url = https://github.com/mjhas/dovecot.git
 [submodule "puppet/modules/postfix"]
 	path = puppet/modules/postfix
 	url = https://github.com/thias/puppet-postfix.git
