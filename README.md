@@ -49,3 +49,65 @@ So, maybe, no webmail. We do not trust the html5 local storage thing. You should
 We want to provide a really secure, strong, community managed service. As it will be fully opened, anyone wanting to build his own infra will be able to do so.
 
 Mails are important. Really. We write anything in them, we send them accross the Web. This project isn't just a "I had an idea this morning". We thought about it for months. It's time to get your privacy back, to get hand on probably the most valuable thing: your private communications.
+
+## Want to test the stuff?
+Great, we need people for tests/validation/ideas!
+
+### Get Puppet and Docker
+In order to get a reproducible environment, this is built using [Docker](https://docker.com/) and [Puppet](https://puppetlabs.com/). This allows us to do really fast tests and validations.
+
+### Get sources
+Clone this repository. As we're using submodules, you'll need to initialize them:
+
+``` Bash
+$ git clone https://github.com/EthACKdotOrg/fogmail
+$ cd fogmail
+$ git submodule init
+$ git submodule update
+```
+
+### Start a Docker
+Ensure the Dockerfile points to the right template (it's a symlink in order to make it more human):
+
+``` Bash
+$ ls -l Dockerfile
+lrwxrwxrwx 1 USER USER    10 Nov 14 17:18 Dockerfile -> mailserver
+```
+
+Change it if you need:
+
+``` Bash
+$ rm Dockerfile
+$ ln -s <file> Dockerfile
+```
+
+Build the image:
+
+``` Bash
+$ docker build -t ethack/mailserver --rm .
+```
+
+If no error during the build, just start an instance in order to see how it runs:
+
+#### Interactive shell
+``` Bash
+$ docker run -t --rm -i ethack/mailserver /bin/bash
+root@...:/# startall &
+```
+
+#### As a daemon
+``` Bash
+$ docker run -d -t  ethack/mailserver
+$ docker ps
+CONTAINER ID        IMAGE                      COMMAND                CREATED             STATUS              PORTS                                        NAMES
+c5cbd7376a29        ethack/mailserver:latest   "/usr/local/sbin/sta   3 seconds ago       Up 2 seconds        443/tcp, 465/tcp, 80/tcp, 993/tcp, 995/tcp   furious_goldstine
+
+$ docker logs c5cbd7376a29
+$ docker kill c5cbd7376a29
+$ docker rm c5cbd7376a29
+```
+
+For more information about Docker, please read their documentation ;).
+
+## Contribute
+Please feel free to contribute, using pull-requests.
