@@ -137,6 +137,26 @@ class {'::tor':
 }
 
 
+# SSH service
+class {'::ssh':
+  storeconfigs_enabled        => false,
+  server_options              => {
+    'PassowordAuthentication' => 'no',
+    'PermitRootLogin'         => 'without-password',
+    'X11Forwarding'           => 'no',
+  },
+}
+
+# git
+class {'::git':
+}->
+vcsrepo {'/usr/src/gpg-mailgate':
+  ensure   => present,
+  provider => 'git',
+  source   => 'https://github.com/ajgon/gpg-mailgate.git',
+}
+
+
 # Taohe
 # some help is provided here
 # https://github.com/david415/ansible-tahoe-lafs
