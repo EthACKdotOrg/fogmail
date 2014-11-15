@@ -23,6 +23,14 @@ APT::Install-Recommends "0";
 APT::Install-Suggests "0";
 ',
 }
+class {'::apt::unattended_upgrades':
+  origins =>  [
+    'o=Debian,n=jessie',
+    'o=Debian,n=jessie-updates',
+    'o=Debian,n=jessie-proposed-updates',
+    'o=Debian,n=jessie,l=Debian-Security',
+  ],
+}
 
 # install common source lists
 ::apt::source {$::lsbdistcodename:
@@ -136,14 +144,18 @@ class {'::tor':
   ]
 }
 
+# install cron/anacron in order to get some
+# periodic tasks, such as system updates, filter
+# updates for SA and so on
+package {['cron', 'anacron']: }
 
 # SSH service
 class {'::ssh':
-  storeconfigs_enabled        => false,
-  server_options              => {
-    'PassowordAuthentication' => 'no',
-    'PermitRootLogin'         => 'without-password',
-    'X11Forwarding'           => 'no',
+  storeconfigs_enabled       => false,
+  server_options             => {
+    'PasswordAuthentication' => 'no',
+    'PermitRootLogin'        => 'without-password',
+    'X11Forwarding'          => 'no',
   },
 }
 
@@ -183,6 +195,7 @@ class {'::postgresql::server':
 }
 
 ::postgresql::server::role {'mail':
+  password_hash => postgresql_password('mail', 'Ew7aisei3Ugae')
 }->
 ::postgresql::server::database {'mail':
   owner => 'mail',
@@ -192,7 +205,7 @@ class {'::postgresql::server':
   type        => 'local',
   database    => 'mail',
   user        => 'mail',
-  auth_method => 'ident',
+  auth_method => 'password',
 }
 
 # Dovecot
@@ -215,6 +228,11 @@ class {'::dovecot::ssl':
   ssl          => 'yes',
   ssl_keyfile  => '/etc/ssl/private/mail.key',
   ssl_certfile => '/etc/ssl/certs/mail.crt',
+}
+class {'::dovecot::postgres':
+  dbname     => 'mail',
+  dbusername => 'mail',
+  dbpassword => 'Ew7aisei3Ugae',
 }
 class {'::dovecot::master':
   postfix => yes,
@@ -245,7 +263,7 @@ class {'::postfix::server':
   mydestination           => "${::fqdn}, \$myhostname",
   message_size_limit      => '15360000', # 15MB
   mail_name               => 'fogmail',
-  spamassassin            => true,
+  #spamassassin           => true,
   smtps_content_filter    => [],
   sa_loadplugin           => [
     'Mail::SpamAssassin::Plugin::Hashcash',

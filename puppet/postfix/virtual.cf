@@ -1,4 +1,5 @@
 user         = mail
+password     = Ew7aisei3Ugae
 dbname       = mail
 table        = postfix_virtual
 select_field = userid
