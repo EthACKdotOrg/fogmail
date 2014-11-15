@@ -7,6 +7,7 @@ Exec {
 
 include ::fogmail::base
 include ::fogmail::scripts
+include ::fogmail::tahoe::client
 
 # install Tor and configure it
 class {'::tor':
@@ -100,37 +101,6 @@ vcsrepo {'/usr/src/gpg-mailgate':
 }
 
 
-# Taohe
-# some help is provided here
-# https://github.com/david415/ansible-tahoe-lafs
-
-package {'tahoe-lafs':
-  ensure => latest,
-}->
-user {'tahoe-mail':
-  home   => '/var/lib/tahoe-lafs/tahoe-mail',
-  system => true,
-}->
-exec {'init tahoe-mail':
-  command => 'tahoe -d "/var/lib/tahoe-lafs/tahoe-mail" create-client -n "tahoe-mail"',
-  creates => '/var/lib/tahoe-lafs/tahoe-mail/tahoe.cfg',
-}->
-file {'/var/lib/tahoe-lafs/tahoe-mail':
-  ensure => directory,
-  owner  => 'tahoe-mail',
-  group  => 'nogroup',
-  mode   => '0700',
-}->
-file {'/var/lib/tahoe-lafs/tahoe-mail/private':
-  ensure => directory,
-  owner  => 'tahoe-mail',
-  group  => 'nogroup',
-  mode   => '0700',
-}->
-shellvar {'AUTOSTART':
-  target => '/etc/default/tahoe-lafs',
-  value  => 'all',
-}
 
 # Postgresql
 class {'::postgresql::globals':
