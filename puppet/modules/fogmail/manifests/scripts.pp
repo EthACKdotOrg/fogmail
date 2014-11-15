@@ -10,7 +10,7 @@ class fogmail::scripts {
   }
 
   # Replication stuff
-  file {'/usr/local/bin/replication-bootstrap':
+  @file {'/usr/local/bin/replication-bootstrap':
     ensure => file,
     mode   => '0700',
     owner  => 'postgres',

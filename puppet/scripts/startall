@@ -6,10 +6,12 @@ service tahoe-lafs start
 service cron start
 service ssh start
 service tor start
-service postgresql start
-service spampd start
-service postfix start
-service dovecot start
+if [ -f /etc/init.d/postgresql ]; then
+  service postgresql start
+  service spampd start
+  service postfix start
+  service dovecot start
+fi
 
 echo
 echo 'SYSTEM READY'

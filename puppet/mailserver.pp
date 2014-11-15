@@ -129,6 +129,7 @@ class {'::postgresql::server':
 ::postgresql::server::database {'mail':
   owner => 'mail',
 }
+realize(File['/usr/local/bin/replication-bootstrap'])
 
 ::postgresql::server::pg_hba_rule {'mail local':
   type        => 'local',
