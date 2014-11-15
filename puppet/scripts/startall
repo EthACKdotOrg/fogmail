@@ -2,6 +2,7 @@
 # setup tahoe, start it if needed
 
 # Once tahoe is OK, start other stuff
+service tahoe-lafs start
 service cron start
 service ssh start
 service tor start
