@@ -14,7 +14,7 @@ All the softwares are open and free. Among them, we can name:
 * [postfix](http://www.postfix.org/)
 * [spamassassin](https://spamassassin.apache.org/) (maybe, not sur to use it)
 * [tor](https://www.torproject.org/)
-* [tahoe-lafs](https://tahoe-lafs.org/trac/tahoe-lafs)
+* [tahoe-lafs](https://tahoe-lafs.org/trac/tahoe-lafs) or [Ceph](http://ceph.com/) with [BTRFS](https://btrfs.wiki.kernel.org/index.php/Main_Page) encryption
 * [puppet](http://puppetlabs.com/)
 
 Also, all the configurations will be open. Well, you won't get hand on the private keys for SSL certificates, of course. But all the other parts will be accessible. Here.
