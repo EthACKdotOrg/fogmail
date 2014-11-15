@@ -1,66 +1,12 @@
 #
 # !! Receipt based on Jessie for a Mailserver, part of EthACK Mail Infrastructure
 #
-
 Exec {
   path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/use/local/sbin',
 }
 
-# initialize apt
-class {'::apt':
-  purge_sources_list   => true,
-  purge_sources_list_d => true,
-  purge_preferences_d  => true,
-}
-
-#Exec['apt_update'] -> Package
-#Apt::Pin -> Package
-
-
-::apt::conf {'ignore-recommends':
-  content => '
-APT::Install-Recommends "0";
-APT::Install-Suggests "0";
-',
-}
-class {'::apt::unattended_upgrades':
-  origins =>  [
-    'o=Debian,n=jessie',
-    'o=Debian,n=jessie-updates',
-    'o=Debian,n=jessie-proposed-updates',
-    'o=Debian,n=jessie,l=Debian-Security',
-  ],
-}
-
-# install common source lists
-::apt::source {$::lsbdistcodename:
-  location => 'http://http.debian.net/debian',
-  release  => $::lsbdistcodename,
-  repos    => 'main contrib non-free',
-}
-
-::apt::source {"${::lsbdistcodename}-updates":
-  location => 'http://http.debian.net/debian',
-  release  => "${::lsbdistcodename}-updates",
-  repos    => 'main contrib non-free',
-}
-
-::apt::source {"${::lsbdistcodename}-security":
-  location => 'http://security.debian.org',
-  release  => "${::lsbdistcodename}/updates",
-  repos    => 'main contrib non-free',
-}
-
-# install torproject sourcelist
-
-::apt::source {'torproject':
-  location    => 'http://deb.torproject.org/torproject.org',
-  release     => 'unstable',
-  repos       => 'main',
-  key         => 'EE8CBC9E886DDD89',
-  pin         => '1001',
-  include_src => false,
-}->
+include ::fogmail::base
+include ::fogmail::scripts
 
 # install Tor and configure it
 class {'::tor':
@@ -144,21 +90,6 @@ class {'::tor':
   ]
 }
 
-# install cron/anacron in order to get some
-# periodic tasks, such as system updates, filter
-# updates for SA and so on
-package {['cron', 'anacron']: }
-
-# SSH service
-class {'::ssh':
-  storeconfigs_enabled       => false,
-  server_options             => {
-    'PasswordAuthentication' => 'no',
-    'PermitRootLogin'        => 'without-password',
-    'X11Forwarding'          => 'no',
-  },
-}
-
 # git
 class {'::git':
 }->
@@ -195,6 +126,10 @@ file {'/var/lib/tahoe-lafs/tahoe-mail/private':
   owner  => 'tahoe-mail',
   group  => 'nogroup',
   mode   => '0700',
+}->
+shellvar {'AUTOSTART':
+  target => '/etc/default/tahoe-lafs',
+  value  => 'all',
 }
 
 # Postgresql
@@ -351,26 +286,6 @@ class {'::postfix::server':
   virtual_mailbox_maps    => [
     'pgsql:/etc/postfix/mailboxes.cf',
   ],
-}
-
-# startup script for docker
-file {'/usr/local/sbin/startall':
-  ensure => file,
-  mode   => '0700',
-  owner  => 'root',
-  group  => 'root',
-  source => '/startall',
-}
-
-# Replication stuff
-file {'/usr/local/bin/replication-bootstrap':
-  ensure => file,
-  mode   => '0700',
-  owner  => 'postgres',
-  group  => 'postgres',
-  source => '/replication-bootstrap',
-}
-class {'::sudo':
 }
 ::sudo::conf {'postgres-on-postgresql':
   content => 'postgres ALL=(ALL) NOPASSWD: /usr/sbin/service postgresql start, NOPASSWD: /usr/sbin/service postgresql stop';
