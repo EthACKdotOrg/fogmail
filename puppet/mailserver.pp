@@ -173,6 +173,30 @@ vcsrepo {'/usr/src/gpg-mailgate':
 # some help is provided here
 # https://github.com/david415/ansible-tahoe-lafs
 
+package {'tahoe-lafs':
+  ensure => latest,
+}->
+user {'tahoe-mail':
+  home   => '/var/lib/tahoe-lafs/tahoe-mail',
+  system => true,
+}->
+exec {'init tahoe-mail':
+  command => 'tahoe -d "/var/lib/tahoe-lafs/tahoe-mail" create-client -n "tahoe-mail"',
+  creates => '/var/lib/tahoe-lafs/tahoe-mail/tahoe.cfg',
+}->
+file {'/var/lib/tahoe-lafs/tahoe-mail':
+  ensure => directory,
+  owner  => 'tahoe-mail',
+  group  => 'nogroup',
+  mode   => '0700',
+}->
+file {'/var/lib/tahoe-lafs/tahoe-mail/private':
+  ensure => directory,
+  owner  => 'tahoe-mail',
+  group  => 'nogroup',
+  mode   => '0700',
+}
+
 # Postgresql
 class {'::postgresql::globals':
   encoding        => 'UTF8',
@@ -237,7 +261,8 @@ class {'::dovecot::postgres':
 class {'::dovecot::master':
   postfix => yes,
 }
-include ::dovecot::mail
+class {'::dovecot::mail':
+}
 
 # Postfix
 file {'/etc/postfix/virtual.cf':
