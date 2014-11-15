@@ -34,3 +34,6 @@
 [submodule "puppet/modules/tor"]
 	path = puppet/modules/tor
 	url = https://github.com/inkblot/puppet-tor.git
+[submodule "puppet/modules/ssh"]
+	path = puppet/modules/ssh
+	url = https://github.com/saz/puppet-ssh
