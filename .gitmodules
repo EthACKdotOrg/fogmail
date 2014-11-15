@@ -40,3 +40,6 @@
 [submodule "puppet/modules/git"]
 	path = puppet/modules/git
 	url = https://github.com/theforeman/puppet-git.git
+[submodule "puppet/modules/vcsrepo"]
+	path = puppet/modules/vcsrepo
+	url = https://github.com/puppetlabs/puppetlabs-vcsrepo.git
