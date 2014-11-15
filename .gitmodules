@@ -37,3 +37,6 @@
 [submodule "puppet/modules/ssh"]
 	path = puppet/modules/ssh
 	url = https://github.com/saz/puppet-ssh
+[submodule "puppet/modules/git"]
+	path = puppet/modules/git
+	url = https://github.com/theforeman/puppet-git.git
