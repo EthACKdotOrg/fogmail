@@ -7,11 +7,65 @@ Exec {
 
 include ::fogmail::base
 include ::fogmail::scripts
-class {'::fogmail::tor':
-  type => 'mailserver',
-}
 class {'::fogmail::tahoe::client':
   introducer => hiera('introducer')
+}
+
+class {'::fogmail::tor':
+  hidden_services => [
+    {
+      name  => 'mail',
+      ports => [
+        {
+          hsport => 110, # POP3s
+          origin => '127.0.0.1:110',
+        },
+        {
+          hsport => 465, # SMTPs
+          origin => '127.0.0.1:465',
+        },
+        {
+          hsport => 993, # IMAPs
+          origin => '127.0.0.1:993',
+        },
+      ],
+    },
+    {
+      name  => 'postgresql',
+      ports => [
+        {
+          hsport => 5432,
+          origin => '127.0.0.1:5432',
+        }
+      ],
+    },
+    {
+      name  => 'tahoe',
+      ports => [
+        {
+          hsport => $tubPort,
+          origin => "127.0.0.1:${tubPort}",
+        },
+        {
+          hsport => $webPort,
+          origin => "127.0.0.1:${webPort}",
+        },
+      ],
+    },
+    {
+      name  => 'webmail',
+      ports => [
+        {
+          hsport => 80,
+          origin => "127.0.0.1:80",
+        },
+        {
+          hsport => 443,
+          origin => "127.0.0.1:443",
+        },
+      ],
+    },
+  ],
 }
 
 # git

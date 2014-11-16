@@ -8,7 +8,21 @@ Exec {
 include ::fogmail::base
 include ::fogmail::scripts
 class {'::fogmail::tor':
-  type => 'storage',
+  hidden_services => [
+    {
+      name  => 'tahoe',
+      ports => [
+        {
+          hsport => $tubPort,
+          origin => "127.0.0.1:${tubPort}",
+        },
+        {
+          hsport => $webPort,
+          origin => "127.0.0.1:${webPort}",
+        },
+      ],
+    },
+  ],
 }
 class {'::fogmail::tahoe::storage':
   introducer => hiera('introducer'),
