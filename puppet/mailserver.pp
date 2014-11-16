@@ -7,7 +7,9 @@ Exec {
 
 include ::fogmail::base
 include ::fogmail::scripts
-include ::fogmail::tahoe::client
+class {'::fogmail::tahoe::client':
+  introducer => hiera('introducer')
+}
 
 # install Tor and configure it
 class {'::tor':
