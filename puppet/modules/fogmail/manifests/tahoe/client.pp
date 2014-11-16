@@ -7,7 +7,7 @@ class fogmail::tahoe::client (
   class {'::fogmail::tahoe::base': }->
 
   exec {'init client':
-    command => 'tahoe create-client -n client -i ${introducer} ${basedir}',
+    command => "tahoe create-client -n client -i ${introducer} ${basedir}",
     creates => "${basedir}/tahoe.cfg",
   }->
   file {$basedir:
