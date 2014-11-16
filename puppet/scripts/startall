@@ -1,8 +1,9 @@
 #!/bin/dash
-# setup tahoe, start it if needed
 
-# Once tahoe is OK, start other stuff
 service tahoe-lafs start
+echo 'waiting a bit'
+sleep 5
+
 service cron start
 service ssh start
 service tor start
@@ -16,6 +17,14 @@ fi
 echo
 echo 'SYSTEM READY'
 echo
+
+if [ -d /var/lib/tahoe-lafs/introducer/private ]; then
+  echo -n 'introducer furl: '
+  cat /var/lib/tahoe-lafs/introducer/private/introducer.furl
+  echo -n 'introducer log port: '
+  cat /var/lib/tahoe-lafs/introducer/private/logport.furl
+fi
+
 echo 'Entering loop'
 # stupid while in order to keep it up
 while true; do sleep 1; done
