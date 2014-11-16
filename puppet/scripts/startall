@@ -7,6 +7,16 @@ service tor start
 echo 'waiting a bit'
 sleep 5
 
+echo 'Set up tahoe tub.location'
+location=$(cat /var/lib/tor/tahoe/hostname)
+for i in client introducer storage; do
+  if [ -f /var/lib/tahoe-lafs/$i/tahoe.cfg ]; do
+    echo "  ${i}"
+    sed -i "s/CHANGEME/${location}/g" /var/lib/tahoe-lafs/$i/tahoe.cfg
+  fi
+done
+echo
+
 service tahoe-lafs start
 
 echo 'Should mount Tahoe "filesystem" now'
