@@ -1,5 +1,5 @@
 user         = mail
-password     = Ew7aisei3Ugae
+password     = <%= @postgresql_password %>
 dbname       = mail
 hosts        = /var/run/postgresql/.s.PGSQL.5432
 table        = postfix_mailboxes

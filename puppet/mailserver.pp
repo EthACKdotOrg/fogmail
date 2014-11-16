@@ -126,7 +126,7 @@ class {'::postgresql::server':
 }
 
 ::postgresql::server::role {'mail':
-  password_hash => postgresql_password('mail', 'Ew7aisei3Ugae')
+  password_hash => postgresql_password('mail', hiera('postgresql_password'))
 }->
 ::postgresql::server::database {'mail':
   owner => 'mail',
@@ -164,7 +164,7 @@ class {'::dovecot::ssl':
 class {'::dovecot::postgres':
   dbname     => 'mail',
   dbusername => 'mail',
-  dbpassword => 'Ew7aisei3Ugae',
+  dbpassword => hiera('postgresql_password'),
 }
 class {'::dovecot::master':
   postfix => yes,
@@ -173,12 +173,13 @@ class {'::dovecot::mail':
 }
 
 # Postfix
+$postgresql_password = hiera('postgresql_password')
 file {'/etc/postfix/virtual.cf':
   ensure  => file,
   owner   => 'root',
   group   => 'postfix',
   mode    => '0640',
-  source  => '/postfix/virtual.cf',
+  content  => template('fogmail/postfix/virtual.cf'),
   require => Class['::postfix::server'],
 }
 file {'/etc/postfix/mailboxes.cf':
@@ -186,7 +187,7 @@ file {'/etc/postfix/mailboxes.cf':
   owner   => 'root',
   group   => 'postfix',
   mode    => '0640',
-  source  => '/postfix/mailboxes.cf',
+  content => template('fogmail/postfix/mailboxes.cf'),
   require => Class['::postfix::server'],
 }
 class {'::postfix::server':

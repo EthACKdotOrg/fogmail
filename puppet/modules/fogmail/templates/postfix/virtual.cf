@@ -1,5 +1,5 @@
 user         = mail
-password     = Ew7aisei3Ugae
+password     = <%= @postgresql_password %>
 dbname       = mail
 table        = postfix_virtual
 select_field = userid
