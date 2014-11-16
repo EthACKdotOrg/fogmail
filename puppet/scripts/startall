@@ -36,9 +36,9 @@ echo 'SYSTEM READY'
 echo
 
 if [ -d /var/lib/tahoe-lafs/introducer/private ]; then
-  echo -n 'introducer furl: '
+  echo 'introducer furl: '
   cat /var/lib/tahoe-lafs/introducer/private/introducer.furl
-  echo -n 'introducer log port: '
+  echo 'introducer log port: '
   cat /var/lib/tahoe-lafs/introducer/private/logport.furl
 fi
 
