@@ -7,7 +7,7 @@ RUN apt-get dist-upgrade -qy
 RUN apt-get install -qy wget puppet curl git-core lsb-release
 
 ADD puppet /
-RUN FACTER_virtual=Docker puppet apply --modulepath=/modules /mailserver.pp --verbose --show_diff
+RUN FACTER_virtual=Docker puppet apply --hiera_config /hiera.yaml --modulepath=/modules /mailserver.pp --verbose --show_diff
 
 EXPOSE 443 80 465 993 995
 
