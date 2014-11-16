@@ -11,6 +11,10 @@ class {'::fogmail::tahoe::client':
   introducer => hiera('introducer')
 }
 
+$tubPort = hiera('tubPort')
+$webPort = hiera('webPort')
+
+
 class {'::fogmail::tor':
   hidden_services => [
     {

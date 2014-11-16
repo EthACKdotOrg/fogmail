@@ -18,6 +18,6 @@ define fogmail::tahoe::ports() {
     "set web port for ${name}":
       section => 'node',
       setting => 'web.port',
-      value   => $webPort;
+      value   => "tcp:${webPort}:interface=127.0.0.1";
   }
 }

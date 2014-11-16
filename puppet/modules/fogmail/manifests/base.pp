@@ -41,17 +41,6 @@ class fogmail::base {
     repos    => 'main contrib non-free',
   }
 
-  # install torproject sourcelist
-  ::apt::source {'torproject':
-    location    => 'http://deb.torproject.org/torproject.org',
-    release     => 'unstable',
-    repos       => 'main',
-    key         => 'EE8CBC9E886DDD89',
-    pin         => '1001',
-    include_src => false,
-    before      => Class['tor'],
-  }
-
   # install cron/anacron in order to get some
   # periodic tasks, such as system updates, filter
   # updates for SA and so on

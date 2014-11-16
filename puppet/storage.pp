@@ -7,6 +7,11 @@ Exec {
 
 include ::fogmail::base
 include ::fogmail::scripts
+
+$tubPort = hiera('tubPort')
+$webPort = hiera('webPort')
+$introducer = hiera('introducer')
+
 class {'::fogmail::tor':
   hidden_services => [
     {
@@ -25,15 +30,5 @@ class {'::fogmail::tor':
   ],
 }
 class {'::fogmail::tahoe::storage':
-  introducer => hiera('introducer'),
+  introducer => $introducer,
 }
-
-file {'/var/lib/tahoe-lafs/introducer/introducer.port':
-  ensure  => file,
-  require => Class['fogmail::tahoe::introducer'],
-  mode    => '0600',
-  owner   => 'introducer',
-  group   => 'nogroup',
-  content => '59933',
-}
-
