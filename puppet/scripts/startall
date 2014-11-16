@@ -1,12 +1,19 @@
 #!/bin/dash
 
-service tahoe-lafs start
+echo 'clean up pre-generated keys for Tor HS'
+rm -f /var/lib/tor/{mail,postgresql,tahoe,webmail}/*
+service tor start
+
 echo 'waiting a bit'
 sleep 5
 
+service tahoe-lafs start
+
+echo 'Should mount Tahoe "filesystem" now'
+
 service cron start
 service ssh start
-service tor start
+
 if [ -f /etc/init.d/postgresql ]; then
   service postgresql start
   service spampd start
