@@ -32,5 +32,6 @@ class fogmail::tor(
       },
     ],
     hidden_services => $hidden_services,
-  }
+  }->
+  package {'torsocks': }
 }
