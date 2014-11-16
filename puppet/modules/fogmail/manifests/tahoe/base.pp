@@ -23,7 +23,15 @@ class fogmail::tahoe::base {
   }->  
   shellvar {'AUTOSTART':
     target => '/etc/default/tahoe-lafs',
-    value  => 'all',
+    value  => 'none',
+  }
+
+  file {'/usr/local/bin/tahoe-service':
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+    source => '/scripts/tahoe-service',
   }
 
   # TODO: python script mounting tahoe

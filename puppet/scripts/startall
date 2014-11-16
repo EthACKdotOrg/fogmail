@@ -13,11 +13,10 @@ for i in client introducer storage; do
   if [ -f /var/lib/tahoe-lafs/$i/tahoe.cfg ]; then
     echo "  ${i}"
     sed -i "s/CHANGEME/${location}/g" /var/lib/tahoe-lafs/$i/tahoe.cfg
+    su -c "/usr/local/bin/tahoe-service start ${i}" $i
   fi
 done
 echo
-
-service tahoe-lafs start
 
 echo 'Should mount Tahoe "filesystem" now'
 
