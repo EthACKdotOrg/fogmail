@@ -1,4 +1,6 @@
-class fogmail::tor {
+class fogmail::tor(
+  $type,
+) {
   $tubPort = hiera('tubPort')
   $webPort = hiera('webPort')
 
