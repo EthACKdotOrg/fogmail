@@ -1,0 +1,7 @@
+#!/bin/dash
+
+type=$1
+
+rm -f Dockerfile
+ln -s $type Dockerfile
+docker build -t ethack:$type --rm .
