@@ -46,3 +46,6 @@
 [submodule "puppet/modules/tor"]
 	path = puppet/modules/tor
 	url = https://github.com/EthACKdotOrg/puppet-tor
+[submodule "puppet/modules/firewall"]
+	path = puppet/modules/firewall
+	url = https://github.com/puppetlabs/puppetlabs-firewall
