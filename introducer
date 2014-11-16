@@ -7,7 +7,7 @@ RUN apt-get dist-upgrade -qy
 RUN apt-get install -qy wget puppet curl git-core lsb-release
 
 ADD puppet /
-RUN FACTER_virtual=Docker puppet apply --modulepath=/modules /introducer.pp --verbose --show_diff
+RUN FACTER_virtual=Docker /scripts/configure introducer
 
 EXPOSE 59933
 
