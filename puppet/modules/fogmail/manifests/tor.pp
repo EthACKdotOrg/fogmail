@@ -20,6 +20,7 @@ class fogmail::tor(
     nickname                => false,
     publishserverdescriptor => false,
     dnsPort                 => 5400,
+    transPort               => 9040,
     sockspolicies => [
       {
         policy => 'accept',
