@@ -29,5 +29,6 @@ class fogmail::tahoe::client (
       section => 'client',
       setting => 'introducer.furl',
       value   => $introducer;
-  }
+  }->
+  ::fogmail::tahoe::ports {'client': }
 }
