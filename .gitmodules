@@ -43,3 +43,6 @@
 [submodule "puppet/modules/inifile"]
 	path = puppet/modules/inifile
 	url = https://github.com/puppetlabs/puppetlabs-inifile
+[submodule "puppet/modules/tor"]
+	path = puppet/modules/tor
+	url = https://github.com/EthACKdotOrg/puppet-tor
