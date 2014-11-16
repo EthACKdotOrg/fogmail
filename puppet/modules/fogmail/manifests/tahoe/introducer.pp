@@ -1,4 +1,5 @@
 class fogmail::tahoe::introducer {
+
   class {'::fogmail::tahoe::base': }->
   exec {'init introducer':
     command => 'tahoe  create-introducer "/var/lib/tahoe-lafs/introducer"',
@@ -9,5 +10,6 @@ class fogmail::tahoe::introducer {
     owner  => 'introducer',
     group  => 'nogroup',
     mode   => '0700',
-  }
+  }->
+  ::fogmail::tahoe::ports {'introducer': }
 }
