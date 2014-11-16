@@ -10,7 +10,7 @@ sleep 5
 echo 'Set up tahoe tub.location'
 location=$(cat /var/lib/tor/tahoe/hostname)
 for i in client introducer storage; do
-  if [ -f /var/lib/tahoe-lafs/$i/tahoe.cfg ]; do
+  if [ -f /var/lib/tahoe-lafs/$i/tahoe.cfg ]; then
     echo "  ${i}"
     sed -i "s/CHANGEME/${location}/g" /var/lib/tahoe-lafs/$i/tahoe.cfg
   fi
