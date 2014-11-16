@@ -7,90 +7,11 @@ Exec {
 
 include ::fogmail::base
 include ::fogmail::scripts
+class {'::fogmail::tor':
+  type => 'mailserver',
+}
 class {'::fogmail::tahoe::client':
   introducer => hiera('introducer')
-}
-
-# install Tor and configure it
-class {'::tor':
-  relay                   => false,
-  nickname                => false,
-  publishserverdescriptor => false,
-  sockspolicies => [
-    {
-      policy => 'accept',
-      target => '127.0.0.1/8'
-    },
-    {
-      policy => 'reject',
-      target => '*',
-    },
-  ],
-  hidden_services => [
-    {
-      name  => 'webmail',
-      ports => [
-        {
-          hsport => 443,
-          origin => '127.0.0.1:433',
-        },
-        {
-          hsport => 80,
-          origin => '127.0.0.1:80',
-        }
-      ]
-    },
-    {
-      name  => 'mail',
-      ports => [
-        {
-          hsport => 993,
-          origin => '127.0.0.1:993', # IMAPs
-        },
-        {
-          hsport => 110,
-          origin => '127.0.0.1:995', # POP3s
-        },
-        #{
-        #  hsport => 25,
-        #  origin => '127.0.0.1:25', # SMTP
-        #},
-        {
-          hsport => 465,
-          origin => '127.0.0.1:465', # SMTPs
-        },
-      ]
-    },
-    {
-      name  => 'postgresql',
-      ports => [
-        {
-          hsport => 5432,
-          origin => '127.0.0.1:5432',
-        }
-      ]
-    },
-    {
-      name  => 'tahoe',
-      ports => [
-        # tub
-        {
-          hsport => 34000,
-          origin => '127.0.0.1:34000',
-        },
-        # web
-        {
-          hsport => 3456,
-          origin => '127.0.0.1:3456',
-        },
-        # lafs-rpg
-        {
-          hsport => 7766,
-          origin => '127.0.0.1:7766',
-        },
-      ]
-    },
-  ]
 }
 
 # git
