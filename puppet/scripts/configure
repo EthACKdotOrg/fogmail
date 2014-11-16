@@ -1,0 +1,2 @@
+#!/bin/dash
+puppet apply --hiera_config /hiera.yaml --modulepath=/modules /${1}.pp --verbose --show_diff
