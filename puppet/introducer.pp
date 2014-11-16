@@ -5,7 +5,9 @@ Exec {
   path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/use/local/sbin',
 }
 
-include ::fogmail::base
+class {'::fogmail::base':
+  line => 'introducer',
+}
 include ::fogmail::scripts
 include ::fogmail::tahoe::introducer
 

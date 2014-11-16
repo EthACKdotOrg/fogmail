@@ -1,4 +1,6 @@
-class fogmail::base {
+class fogmail::base(
+  $line,
+) {
 
   # initialize apt
   class {'::apt':
@@ -57,5 +59,12 @@ class fogmail::base {
   }
 
   class {'::sudo':
+  }
+
+  file {'/etc/profile.d/ps1.sh':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    content => template('fogmail/ps1.erb'),
   }
 }
