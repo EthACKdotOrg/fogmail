@@ -1,4 +1,11 @@
-class fogmail::tahoe::client {
+class fogmail::tahoe::client (
+  $introducer,
+){
+
+  Ini_setting {
+    path => '/var/lib/tahoe-lafs/client/tahoe.cfg',
+  }
+
   class {'::fogmail::tahoe::base': }->
 
   exec {'init client':
@@ -16,5 +23,11 @@ class fogmail::tahoe::client {
     owner  => 'client',
     group  => 'nogroup',
     mode   => '0700',
+  }->
+  ini_setting {
+    'set introducer':
+      section => 'client',
+      setting => 'introducer.furl',
+      value   => $introducer;
   }
 }
