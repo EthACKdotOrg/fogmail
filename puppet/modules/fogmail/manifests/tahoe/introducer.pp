@@ -7,7 +7,7 @@ class fogmail::tahoe::introducer {
   }->
   file {'/var/lib/tahoe-lafs/introducer':
     ensure => directory,
-    owner  => 'introducer',
+    owner  => 'tahoe-introducer',
     group  => 'nogroup',
     mode   => '0700',
   }->

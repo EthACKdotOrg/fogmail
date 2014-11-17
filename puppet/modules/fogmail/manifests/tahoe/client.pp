@@ -12,13 +12,13 @@ class fogmail::tahoe::client (
   }->
   file {$basedir:
     ensure => directory,
-    owner  => 'client',
+    owner  => 'tahoe-client',
     group  => 'nogroup',
     mode   => '0700',
   }->
   file {"${basedir}/private":
     ensure => directory,
-    owner  => 'client',
+    owner  => 'tahoe-client',
     group  => 'nogroup',
     mode   => '0700',
   }->

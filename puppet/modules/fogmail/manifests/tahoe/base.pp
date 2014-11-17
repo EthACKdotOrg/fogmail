@@ -1,16 +1,19 @@
 class fogmail::tahoe::base {
+  $client = 'tahoe-client'
+  $introducer = 'tahoe-introducer'
+  $storage = 'tahoe-storage'
 
-  user {'client':
+  user {$client:
     home   => '/var/lib/tahoe-lafs/client',
     system => true,
   }
   
-  user {'introducer':
+  user {$introducer:
     home   => '/var/lib/tahoe-lafs/introducer',
     system => true,
   }
 
-  user {'storage':
+  user {$storage:
     home   => '/var/lib/tahoe-lafs/storage',
     system => true,
   }
@@ -45,37 +48,37 @@ class fogmail::tahoe::base {
       jump  => 'REDIRECT',
     }
     firewall {'000 redirect "client" DNS':
-      uid    => 'client',
+      uid    => $client,
       proto  => 'udp',
       dport  => 53,
       todest => 5400,
     }
     firewall {'001 redirect "client" tcp':
-      uid      => 'client',
+      uid      => $client,
       proto    => 'tcp',
       outiface => 'eth0',
       todest   => 9040,
     }
     firewall {'000 redirect "introducer" DNS':
-      uid    => 'introducer',
+      uid    => $introducer,
       proto  => 'udp',
       dport  => 53,
       todest => 5400,
     }
     firewall {'001 redirect "introducer" tcp':
-      uid      => 'introducer',
+      uid      => $introducer,
       proto    => 'tcp',
       outiface => 'eth0',
       todest   => 9040,
     }
     firewall {'000 redirect "storage" DNS':
-      uid    => 'storage',
+      uid    => $storage,
       proto  => 'udp',
       dport  => 53,
       todest => 5400,
     }
     firewall {'001 redirect "storage" tcp':
-      uid      => 'storage',
+      uid      => $storage,
       proto    => 'tcp',
       outiface => 'eth0',
       todest   => 9040,

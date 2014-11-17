@@ -11,10 +11,10 @@ define fogmail::tahoe::ports() {
       section => 'node',
       setting => 'tub.port',
       value   => $tubPort;
-    "set tub URL for ${name}":
-      section => 'node',
-      setting => 'tub.location',
-      value   => "CHANGEME:${tubPort},127.0.0.1:${tubPort}";
+    #"set tub URL for ${name}":
+    #  section => 'node',
+    #  setting => 'tub.location',
+    #  value   => "CHANGEME:${tubPort},127.0.0.1:${tubPort}";
     "set web port for ${name}":
       section => 'node',
       setting => 'web.port',
