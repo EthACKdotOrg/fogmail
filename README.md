@@ -14,7 +14,8 @@ All the softwares are open and free. Among them, we can name:
 * [postfix](http://www.postfix.org/)
 * [spamassassin](https://spamassassin.apache.org/) (maybe, not sur to use it)
 * [tor](https://www.torproject.org/)
-* [tahoe-lafs](https://tahoe-lafs.org/trac/tahoe-lafs) or [Ceph](http://ceph.com/) with [BTRFS](https://btrfs.wiki.kernel.org/index.php/Main_Page) encryption
+* ~~[tahoe-lafs](https://tahoe-lafs.org/trac/tahoe-lafs) or [Ceph](http://ceph.com/) with [BTRFS](https://btrfs.wiki.kernel.org/index.php/Main_Page) encryption~~
+* [EncFS](https://vgough.github.io/encfs/) with either [XtreemFS](http://xtreemfs.org/) or [GlusterFS](http://www.gluster.org/) or anything like that
 * [puppet](http://puppetlabs.com/)
 
 Also, all the configurations will be open. Well, you won't get hand on the private keys for SSL certificates, of course. But all the other parts will be accessible. Here.
@@ -28,6 +29,8 @@ Mail aren't good for decentralization. And it will most probably never be. But s
 Dovecot supports master-master replication. This allows us to build several entry-points for your pop/imap access; as well, building several entries for postfix isn't a problem. We will just get "some" DNS entries for the MX field ;).
 
 As previously stated, the main decentralized part will be for the storage. Probably the most important part in fact: mails are growing, we send more and more stuff through it. Thus we need storage. Using Tahoe-lafs, we will be able to provide an infinit-storage, provided you, the community, participate and provide some spare gigas.
+
+Note: we're probably NOT going to use Tahoe. Still, we'll be able to decentralize the filesystem. Thus don't worry ;).
 
 ## Security
 Probably the most interesting part. We want your communications to be encrypted. All of them. Even if you don't send them encrypted.
