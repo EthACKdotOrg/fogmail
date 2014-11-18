@@ -9,13 +9,6 @@ class {'::fogmail::base':
   line => 'mailserver',
 }
 include ::fogmail::scripts
-class {'::fogmail::tahoe::client':
-  introducer => hiera('introducer')
-}
-
-$tubPort = hiera('tubPort')
-$webPort = hiera('webPort')
-
 
 class {'::fogmail::tor':
   hidden_services => [
@@ -33,28 +26,6 @@ class {'::fogmail::tor':
         {
           hsport => 993, # IMAPs
           origin => '127.0.0.1:993',
-        },
-      ],
-    },
-    {
-      name  => 'postgresql',
-      ports => [
-        {
-          hsport => 5432,
-          origin => '127.0.0.1:5432',
-        }
-      ],
-    },
-    {
-      name  => 'tahoe',
-      ports => [
-        {
-          hsport => $tubPort,
-          origin => "127.0.0.1:${tubPort}",
-        },
-        {
-          hsport => $webPort,
-          origin => "127.0.0.1:${webPort}",
         },
       ],
     },
