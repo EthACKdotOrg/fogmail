@@ -67,7 +67,9 @@ class fogmail::base(
     },
   }
 
-  class {'::sudo':
+  class {'::sudo': }
+  class {'::ntp':
+    restrict => ['127.0.0.1'],
   }
 
   file {'/etc/profile.d/ps1.sh':
@@ -80,6 +82,13 @@ class fogmail::base(
   class {'::xtreemfs::settings':
     add_repo => false,
     require  => Apt::Source['xtreemfs'],
+  }
+
+  file {"/etc/default/fogmail_${line}":
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
   }
 
   case $line {
