@@ -1,2 +1,6 @@
 ---
-introducer: 'pb://foo@IP:port,local_ip:port/bar'
+xstreemfs::pkcs12_password: ''
+xstreemfs::keystore_password: ''
+xstreemfs::capability_secret: ''
+xstreemfs::dir_server: ''
+postgresql_password: ''
