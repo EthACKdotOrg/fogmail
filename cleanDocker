@@ -1,2 +1,8 @@
 #!/bin/dash
-docker rmi $( docker images | awk '/none/ { print $3}')
+
+if [ $(docker ps -a | grep -c Exit) -gt 0 ]; then
+  docker rm $(docker ps -a | awk '/Exit/ {print $1}')
+fi
+if [ $(docker images | grep -c none) -gt 0 ]; then
+  docker rmi $( docker images | awk '/none/ { print $3}')
+fi
