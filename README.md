@@ -62,57 +62,46 @@ In order to get a reproducible environment, this is built using [Docker](https:/
 ### Get sources
 Clone this repository. As we're using submodules, you'll need to initialize them:
 
-``` Bash
+```Bash
 $ git clone https://github.com/EthACKdotOrg/fogmail
 $ cd fogmail
 $ git submodule init
 $ git submodule update
 ```
 
-**Note** it's possible you get some problems for two repositories: tor and dovecot. We're using our own version for now, as we had to modify them. Pull-requests are on their way.
-
 ### Start a Docker
-Ensure the Dockerfile points to the right template (it's a symlink in order to make it more human):
 
-``` Bash
-$ ls -l Dockerfile
-lrwxrwxrwx 1 USER USER    10 Nov 14 17:18 Dockerfile -> mailserver
+First, you need to build the base box:
+
+```Bash
+$ ./build base
 ```
 
-Change it if you need:
+Once the base image is ready, you might build the introducer:
 
-``` Bash
-$ rm Dockerfile
-$ ln -s <file> Dockerfile
+```Bash
+$ ./build introducer
 ```
 
-Build the image:
+Once the introducer is ready, run it:
 
-``` Bash
-$ docker build -t ethack/mailserver --rm .
+```Bash
+$ ./run introducer
 ```
 
-If no error during the build, just start an instance in order to see how it runs:
+Get its IP, update the common.yaml file (in puppet/hiera directory), and build the two other boxes:
 
-#### Interactive shell
-``` Bash
-$ docker run -t --rm -i ethack/mailserver /bin/bash
-root@...:/# startall &
+```Bash
+$ ./build storage
+$ ./build mailserver
 ```
 
-#### As a daemon
-``` Bash
-$ docker run -d -t  ethack/mailserver
-$ docker ps
-CONTAINER ID        IMAGE                      …
-c5cbd7376a29        ethack/mailserver:latest   …
+And run them:
 
-$ docker logs c5cbd7376a29
-$ docker kill c5cbd7376a29
-$ docker rm c5cbd7376a29
+```Bash
+$ ./run storage
+$ ./run mailserver
 ```
-
-For more information about Docker, please read their documentation ;).
 
 ## Contribute
 Please feel free to contribute, using pull-requests.
