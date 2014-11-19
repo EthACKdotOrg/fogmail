@@ -52,3 +52,6 @@
 [submodule "puppet/modules/xtreemfs"]
 	path = puppet/modules/xtreemfs
 	url = https://github.com/wavesoftware/puppet-xtreemfs.git
+[submodule "puppet/modules/ntp"]
+	path = puppet/modules/ntp
+	url = https://github.com/puppetlabs/puppetlabs-ntp
