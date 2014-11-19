@@ -43,6 +43,15 @@ class fogmail::base(
     repos    => 'main contrib non-free',
   }
 
+  $repo = 'http://download.opensuse.org/repositories/home:/xtreemfs/xUbuntu_14.10/'
+  ::apt::source {'xtreemfs':
+    location   => $repo,
+    repos      => './',
+    release    => '',
+    key        => '07D6EA4F2FA7E736',
+    key_source => "${repo}/Release.key",
+  }
+
   # install cron/anacron in order to get some
   # periodic tasks, such as system updates, filter
   # updates for SA and so on
@@ -67,4 +76,35 @@ class fogmail::base(
     group   => 'root',
     content => template('fogmail/ps1.erb'),
   }
+
+  class {'::xtreemfs::settings':
+    add_repo => false,
+    require  => Apt::Source['xtreemfs'],
+  }
+
+  case $line {
+    introducer: {
+      class {'xtreemfs::role::directory':
+      }
+      class {'xtreemfs::role::metadata':
+        dir_service  => 'localhost',
+      }
+    }
+    storage: {
+      class {'xtreemfs::role::storage':
+        dir_service => hiera('xstreemfs::dir_server'),
+        object_dir  => '/mnt/xtreemfs',
+      }
+    }
+    client: {}
+  }
+
+  file {'/etc/xos/truststore':
+    ensure  => directory,
+    owner   => 'root',
+    group   => 'xtreemfs',
+    mode    => '0750',
+    require => Anchor[$xtreemfs::internal::workflow::packages],
+  }
+
 }
