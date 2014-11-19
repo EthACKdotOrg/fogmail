@@ -3,6 +3,6 @@ FROM ethack:base
 ADD puppet /
 RUN FACTER_virtual=Docker /scripts/configure introducer
 
-EXPOSE 34000
+EXPOSE 32636 32638
 
 CMD ["/usr/local/sbin/startall"]
