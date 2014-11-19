@@ -1,25 +1,6 @@
 #!/bin/dash
 
-echo 'clean up pre-generated keys for Tor HS'
-rm -f /var/lib/tor/{mail,postgresql,tahoe,webmail}/*
-service tor start
-
-echo 'waiting a bit'
-sleep 5
-
-echo 'Start tahoe shares'
-location=$(cat /var/lib/tor/tahoe/hostname)
-for i in client introducer storage; do
-  if [ -f /var/lib/tahoe-lafs/$i/tahoe.cfg ]; then
-    echo "  ${i}"
-    #sed -i "s/CHANGEME/${location}/g" /var/lib/tahoe-lafs/$i/tahoe.cfg
-    su -c "/usr/local/bin/tahoe-service start ${i}" tahoe-${i}
-  fi
-done
-echo
-
-echo 'Should mount Tahoe "filesystem" now'
-
+service ntp start
 service cron start
 service ssh start
 
@@ -30,16 +11,22 @@ if [ -f /etc/init.d/postgresql ]; then
   service dovecot start
 fi
 
+if [ -f /etc/default/fogmail_introducer ]; then
+  service xtreemfs-dir start
+  service xtreemfs-mrc start
+fi
+
+if [ -f /etc/default/fogmail_storage ]; then
+  service xtreemfs-osd start
+fi
+
+if [ -f /etc/default/fogmail_client ]; then
+  echo 'Eww… nothing for now'
+fi
+
 echo
 echo 'SYSTEM READY'
 echo
-
-if [ -d /var/lib/tahoe-lafs/introducer/private ]; then
-  echo 'introducer furl: '
-  cat /var/lib/tahoe-lafs/introducer/private/introducer.furl
-  echo 'introducer log port: '
-  cat /var/lib/tahoe-lafs/introducer/private/logport.furl
-fi
 
 echo 'Entering loop'
 # stupid while in order to keep it up
