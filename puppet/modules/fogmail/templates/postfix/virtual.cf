@@ -1,7 +1,0 @@
-user         = mail
-password     = <%= @postgresql_password %>
-dbname       = mail
-table        = postfix_virtual
-select_field = userid
-where_field  = address
-hosts        = /var/run/postgresql/.s.PGSQL.5432
