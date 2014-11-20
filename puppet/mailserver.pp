@@ -6,7 +6,7 @@ Exec {
 }
 
 class {'::fogmail::base':
-  line => 'mailserver',
+  role => 'client',
 }
 include ::fogmail::scripts
 

@@ -6,6 +6,6 @@ Exec {
 }
 
 class {'::fogmail::base':
-  line => 'storage',
+  role => 'storage',
 }
 include ::fogmail::scripts

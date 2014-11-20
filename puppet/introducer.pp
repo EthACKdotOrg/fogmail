@@ -6,6 +6,6 @@ Exec {
 }
 
 class {'::fogmail::base':
-  line => 'introducer',
+  role => 'introducer',
 }
 include ::fogmail::scripts
