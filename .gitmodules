@@ -55,3 +55,6 @@
 [submodule "puppet/modules/ntp"]
 	path = puppet/modules/ntp
 	url = https://github.com/puppetlabs/puppetlabs-ntp
+[submodule "puppet/modules/fogmail"]
+	path = puppet/modules/fogmail
+	url = https://github.com/EthACKdotOrg/puppet-fogmail
