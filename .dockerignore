@@ -1,0 +1,6 @@
+base
+build
+cleanDocker
+run
+.git
+.gitignore
