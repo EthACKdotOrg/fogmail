@@ -21,16 +21,15 @@ All the softwares are open and free. Among them, we can name:
 Also, all the configurations will be open. Well, you won't get hand on the private keys for SSL certificates, of course. But all the other parts will be accessible. Here.
 
 ## Community
-If the entry points will be managed by a couple of people ([@SwissTengu](https://twitter.com/swisstengu/) mostly), the design will allow people to help. Mostly for mail storage. Using tahoe-lafs, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
+If the entry points will be managed by a couple of people ([@SwissTengu](https://twitter.com/swisstengu/) mostly), the design will allow people to help. Mostly for mail storage. Using decentralized filesystem, anyone wanting to give some giga to the project will be able to do so. We will provide a simple receipt allowing you to just apply it, and you're done.
 
 ## Decentralization
 Mail aren't good for decentralization. And it will most probably never be. But still, we do have ways to do some nice things:
 
 Dovecot supports master-master replication. This allows us to build several entry-points for your pop/imap access; as well, building several entries for postfix isn't a problem. We will just get "some" DNS entries for the MX field ;).
 
-As previously stated, the main decentralized part will be for the storage. Probably the most important part in fact: mails are growing, we send more and more stuff through it. Thus we need storage. Using Tahoe-lafs, we will be able to provide an infinit-storage, provided you, the community, participate and provide some spare gigas.
+As previously stated, the main decentralized part will be for the storage. Probably the most important part in fact: mails are growing, we send more and more stuff through it. Thus we need storage. Using decentralized filesystem, we will be able to provide an infinit-storage, provided you, the community, participate and provide some spare gigas.
 
-Note: we're probably NOT going to use Tahoe. Still, we'll be able to decentralize the filesystem. Thus don't worry ;).
 
 ## Security
 Probably the most interesting part. We want your communications to be encrypted. All of them. Even if you don't send them encrypted.
@@ -39,7 +38,7 @@ There are already [hacks](https://github.com/ajgon/gpg-mailgate) on postfix in o
 
 Also, each node will be secured at the best possible. Running on closed environment, with no remote access. Updates will be followed closely (that's [@SwissTengu](https://twitter.com/swisstengu/) job for years now).
 
-Also, all communication between nodes will be encrypted. [Dovecot replication](http://wiki2.dovecot.org/Replication) support SSL over TCP, and Tahoe already communicates with encrypted channels (and data are encrypted on the client side, then sent to the storage).
+Also, all communication between nodes will be encrypted. 
 
 ## Access to emails
 Well, yes, this may be interesting for you as well ;).
@@ -65,6 +64,14 @@ Clone this repository. As we're using submodules, you'll need to initialize them
 ```Bash
 $ git clone https://github.com/EthACKdotOrg/fogmail
 $ cd fogmail
+$ git submodule init
+$ git submodule update
+```
+
+Or update them:
+
+```Bash
+$ git pull
 $ git submodule init
 $ git submodule update
 ```
@@ -102,6 +109,13 @@ And run them:
 $ ./run storage
 $ ./run mailserver
 ```
+
+Note: docker images will be flagged as follow:
+
+- Repository: ethack
+- Tag: introducer|storage|mailserver
+
+Also, if you want to run "cleanDocker" script, ensure you don't have any of your images with "none" in its repository/tag… Else it will be dropped.
 
 ## Contribute
 Please feel free to contribute, using pull-requests.
