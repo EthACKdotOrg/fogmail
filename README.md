@@ -48,7 +48,7 @@ Mostly, we will focus on imaps/pop3s/smpts services. This will allow you to use 
 So, maybe, no webmail. We do not trust the html5 local storage thing. You shouldn't as well.
 
 ## In short
-We want to provide a really secure, strong, community managed service. As it will be fully opened, anyone wanting to build his own infra will be able to do so.
+We want to provide a really secure, strong, community managed service. As it will be fully open, anyone wanting to build his own infra will be able to do so.
 
 Mails are important. Really. We write anything in them, we send them accross the Web. This project isn't just a "I had an idea this morning". We thought about it for months. It's time to get your privacy back, to get hand on probably the most valuable thing: your private communications.
 
