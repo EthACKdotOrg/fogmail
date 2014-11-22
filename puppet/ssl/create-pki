@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+#
+# For PKI infrastructure information, just read the doc:
+# http://pki-tutorial.readthedocs.org/en/latest/index.html
+#
+# This script creates a root CA and a sub-CA.
+# You just have to add the root CA to JKS, allowing
+# to get multiple sub-CA, revoke them whenever you want/need.
+
+# Ensure rights are correct on private directories
+chmod 0700 ca/root-ca/private
+chmod 0700 ca/sub-ca/private
+
+# Create databases
+touch ca/root-ca/db/root-ca.db
+touch ca/root-ca/db/root-ca.db.attr
+
+echo 01 > ca/root-ca/db/root-ca.crt.srl
+echo 01 > ca/root-ca/db/root-ca.crl.srl
+
+# Create Root CA
+openssl req -new \
+  -config etc/root-ca.conf \
+  -out ca/root-ca.csr \
+  -keyout ca/root-ca/private/root-ca.key
+
+# Sign it
+openssl ca -selfsign \
+  -config etc/root-ca.conf \
+  -in ca/root-ca.csr \
+  -out ca/root-ca.crt \
+  -extensions root_ca_ext \
+  -days 18250 # more or less 50 years
+
+# Create CRL
+openssl ca -gencrl \
+  -config etc/root-ca.conf \
+  -out crl/root-ca.crl
+
+# Create sub-CA
+openssl req -new \
+  -config etc/sub-ca.conf \
+  -out ca/sub-ca.csr \
+  -keyout ca/sub-ca/private/sub-ca.key
+
+# CA certificate
+openssl ca \
+  -config etc/root-ca.conf \
+  -in ca/sub-ca.csr \
+  -out ca/sub-ca.crt \
+  -extensions signing_ca_ext
+
+# Create CRL
+openssl ca -gencrl \
+  -config etc/sub-ca.conf \
+  -out crl/sub-ca.crl
+
+# Create bundle
+cat ca/sub-ca.crt ca/root-ca.crt > ca/sub-ca-chain.pem
+
