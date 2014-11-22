@@ -3,5 +3,5 @@
 type=$1
 
 rm -f Dockerfile
-ln -s $type Dockerfile
+cp $type Dockerfile
 docker build -t ethack:$type --rm .
