@@ -98,14 +98,14 @@ file {'/etc/ssl/private/mail.key':
   owner  => 'root',
   group  => 'root',
   mode   => '0600',
-  source => '/ssl/mail.key',
+  source => '/ssl/certs/mail.key',
 }->
 file {'/etc/ssl/certs/mail.crt':
   ensure => file,
   owner  => 'root',
   group  => 'root',
   mode   => '0644',
-  source => '/ssl/mail.crt',
+  source => '/ssl/certs/mail.crt',
 }->
 class {'::dovecot': }
 class {'::dovecot::ssl':
