@@ -44,16 +44,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # create some storages
     (1..4).each do |i|
+      s.args = "storage"
       config.vm.define "storage-#{i}" do |node|
         node.vm.hostname = "storage-#{i}"
         node.vm.network "private_network", ip: "192.168.50.2#{i}"
       end
     end
 
-    # create a client
-    config.vm.define "client" do |node|
-      node.vm.hostname = "client"
-      node.vm.network "private_network", ip: "192.168.50.100"
+    # create some clients
+    (1..2).each do |i|
+      config.vm.define "mailserver-#{i}" do |node|
+        node.vm.hostname = "mailserver-#{i}"
+        node.vm.network "private_network", ip: "192.168.50.3#{i}"
+        s.args = "mailserver"
+      end
     end
   end
 end
