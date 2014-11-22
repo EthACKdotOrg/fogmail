@@ -4,4 +4,4 @@ type=$1
 
 rm -f Dockerfile
 ln -s $type Dockerfile
-docker run -i --rm -t ethack:$type /bin/bash
+docker run -i --rm --privileged -t ethack:$type /bin/bash

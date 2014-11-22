@@ -1,4 +1,5 @@
 FROM debian:jessie
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo 'APT::Install-Recommends "0";' > /etc/apt/apt.conf.d//50-ignore-recommends
 RUN echo 'APT::Install-Suggests "0";' >> /etc/apt/apt.conf.d//50-ignore-recommends

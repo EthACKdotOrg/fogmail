@@ -1,8 +1,12 @@
 FROM ethack:base
 
+ENV DEBIAN_FRONTEND noninteractive
+
 ADD puppet /
 RUN FACTER_virtual=Docker /scripts/configure mailserver
 
 EXPOSE 443 80 465 993 995
+
+RUN echo "KERNEL==fuse, MODE=0777" > /etc/udev/rules.d/99-fuse.rules
 
 CMD ["/usr/local/sbin/startall"]
