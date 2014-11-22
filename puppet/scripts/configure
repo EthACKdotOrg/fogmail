@@ -1,2 +1,3 @@
 #!/bin/dash
+export FACTER_debug=1
 puppet apply --hiera_config /hiera.yaml --modulepath=/modules /${1}.pp --verbose --show_diff
