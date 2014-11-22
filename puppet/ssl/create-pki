@@ -12,19 +12,19 @@ chmod 0700 ca/root-ca/private
 chmod 0700 ca/sub-ca/private
 
 # Create databases
-touch ca/root-ca/db/root-ca.db
-touch ca/root-ca/db/root-ca.db.attr
+> ca/root-ca/db/root-ca.db
+> ca/root-ca/db/root-ca.db.attr
 
 echo 01 > ca/root-ca/db/root-ca.crt.srl
 echo 01 > ca/root-ca/db/root-ca.crl.srl
 
-# Create Root CA
+echo Create Root CA
 openssl req -new \
   -config etc/root-ca.conf \
   -out ca/root-ca.csr \
   -keyout ca/root-ca/private/root-ca.key
 
-# Sign it
+echo Sign it
 openssl ca -selfsign \
   -config etc/root-ca.conf \
   -in ca/root-ca.csr \
@@ -32,29 +32,35 @@ openssl ca -selfsign \
   -extensions root_ca_ext \
   -days 18250 # more or less 50 years
 
-# Create CRL
+echo Create CRL
 openssl ca -gencrl \
   -config etc/root-ca.conf \
   -out crl/root-ca.crl
 
-# Create sub-CA
+> ca/sub-ca/db/sub-ca.db
+> ca/sub-ca/db/sub-ca.db.attr
+
+echo 01 > ca/sub-ca/db/sub-ca.crt.srl
+echo 01 > ca/sub-ca/db/sub-ca.crl.srl
+
+echo Create sub-CA
 openssl req -new \
   -config etc/sub-ca.conf \
   -out ca/sub-ca.csr \
   -keyout ca/sub-ca/private/sub-ca.key
 
-# CA certificate
+echo Sign sub-ca
 openssl ca \
   -config etc/root-ca.conf \
   -in ca/sub-ca.csr \
   -out ca/sub-ca.crt \
   -extensions signing_ca_ext
 
-# Create CRL
+echo Create CRL
 openssl ca -gencrl \
   -config etc/sub-ca.conf \
   -out crl/sub-ca.crl
 
-# Create bundle
+echo Create bundle
 cat ca/sub-ca.crt ca/root-ca.crt > ca/sub-ca-chain.pem
 
