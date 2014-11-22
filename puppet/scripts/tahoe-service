@@ -1,4 +1,0 @@
-#!/bin/dash
-
-#torsocks on
-tahoe $1 /var/lib/tahoe-lafs/$2
