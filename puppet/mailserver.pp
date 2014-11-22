@@ -5,13 +5,17 @@ Exec {
   path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/use/local/sbin',
 }
 
+$ssl_base = '/vagrant/puppet'
+
 class {'::fogmail::base':
   role => 'client',
 }
 
-$ssl_base = '/vagrant/puppet',
+Package {
+  require => Exec['apt_update'],
+}
 
-include ::fogmail::scripts
+class {'::fogmail::scripts': }
 
 class {'::fogmail::tor':
   hidden_services => [
@@ -46,7 +50,7 @@ class {'::fogmail::tor':
       ],
     },
   ],
-}
+}->
 
 # git
 class {'::git':
@@ -55,10 +59,7 @@ vcsrepo {'/usr/src/gpg-mailgate':
   ensure   => present,
   provider => 'git',
   source   => 'https://github.com/ajgon/gpg-mailgate.git',
-}
-
-
-
+}->
 # Postgresql
 class {'::postgresql::globals':
   encoding        => 'UTF8',
@@ -86,45 +87,60 @@ class {'::postgresql::server':
 ::postgresql::server::database {'mail':
   owner => 'mail',
 }
-realize(File['/usr/local/bin/replication-bootstrap'])
 
 ::postgresql::server::pg_hba_rule {'mail local':
   type        => 'local',
   database    => 'mail',
   user        => 'mail',
   auth_method => 'password',
-}
+}->
 
 # Dovecot
-file {'/etc/ssl/private/mail.key':
-  ensure => file,
+file {'/etc/dovecot':
+  ensure => directory,
   owner  => 'root',
   group  => 'root',
-  mode   => '0600',
-  source => "${ssl_base}/ssl/certs/mail.key",
+  mode   => '0755',
 }->
-file {'/etc/ssl/certs/mail.crt':
+file {'/etc/dovecot/private':
+  ensure => directory,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0700',
+}->
+file {'/etc/dovecot/dovecot.pem':
   ensure => file,
   owner  => 'root',
   group  => 'root',
   mode   => '0644',
   source => "${ssl_base}/ssl/certs/mail.crt",
 }->
+file {'/etc/dovecot/private/dovecot.pem':
+  ensure => file,
+  owner  => 'root',
+  group  => 'root',
+  mode   => '0600',
+  source => "${ssl_base}/ssl/certs/mail.key",
+}->
 class {'::dovecot': }
 class {'::dovecot::ssl':
   ssl          => 'yes',
-  ssl_keyfile  => '/etc/ssl/private/mail.key',
-  ssl_certfile => '/etc/ssl/certs/mail.crt',
+  ssl_keyfile  => '/etc/dovecot/private/dovecot.pem',
+  ssl_certfile => '/etc/dovecot/dovecot.pem',
+  require      => File['/etc/dovecot'],
 }
 class {'::dovecot::postgres':
   dbname     => 'mail',
   dbusername => 'mail',
   dbpassword => hiera('postgresql_password'),
+  require    => File['/etc/dovecot'],
 }
 class {'::dovecot::master':
   postfix => yes,
+  require => File['/etc/dovecot'],
 }
 class {'::dovecot::mail':
+  require => File['/etc/dovecot'],
 }
 
 # Postfix
@@ -207,8 +223,8 @@ class {'::postfix::server':
     'reject_unauth_destination',
   ],
   smtpd_sasl_auth         => true,
-  smtpd_tls_key_file      => '/etc/ssl/private/mail.key',
-  smtpd_tls_cert_file     => '/etc/ssl/certs/mail.crt',
+  smtpd_tls_key_file      => '/etc/dovecot/private/dovecot.pem',
+  smtpd_tls_cert_file     => '/etc/dovecot/dovecot.pem',
   virtual_alias_maps      => [
     'pgsql:/etc/postfix/virtual.cf',
   ],
@@ -219,3 +235,5 @@ class {'::postfix::server':
 ::sudo::conf {'postgres-on-postgresql':
   content => 'postgres ALL=(ALL) NOPASSWD: /usr/sbin/service postgresql start, NOPASSWD: /usr/sbin/service postgresql stop';
 }
+
+realize(File['/usr/local/bin/replication-bootstrap'])
