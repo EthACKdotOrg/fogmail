@@ -2,3 +2,5 @@ Dockerfile
 puppet/ssl
 puppet/hiera/common.yaml
 *.swp
+.vagrant
+*.box
