@@ -5,10 +5,13 @@ Exec {
   path => '/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/use/local/sbin',
 }
 
-$ssl_base = '/vagrant/puppet'
+include stdlib
 
 class {'::fogmail::base':
-  role => 'client',
+  role  => 'client',
+}
+class {'::fogmail::mailserver::setup':
+  stage  => 'setup',
 }
 
 Package {
@@ -96,51 +99,23 @@ class {'::postgresql::server':
 }->
 
 # Dovecot
-file {'/etc/dovecot':
-  ensure => directory,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0755',
-}->
-file {'/etc/dovecot/private':
-  ensure => directory,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0700',
-}->
-file {'/etc/dovecot/dovecot.pem':
-  ensure => file,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0644',
-  source => "${ssl_base}/ssl/certs/mail.crt",
-}->
-file {'/etc/dovecot/private/dovecot.pem':
-  ensure => file,
-  owner  => 'root',
-  group  => 'root',
-  mode   => '0600',
-  source => "${ssl_base}/ssl/certs/mail.key",
-}->
-class {'::dovecot': }
+
+class {'::dovecot': 
+}
 class {'::dovecot::ssl':
   ssl          => 'yes',
   ssl_keyfile  => '/etc/dovecot/private/dovecot.pem',
   ssl_certfile => '/etc/dovecot/dovecot.pem',
-  require      => File['/etc/dovecot'],
 }
 class {'::dovecot::postgres':
   dbname     => 'mail',
   dbusername => 'mail',
   dbpassword => hiera('postgresql_password'),
-  require    => File['/etc/dovecot'],
 }
 class {'::dovecot::master':
   postfix => yes,
-  require => File['/etc/dovecot'],
 }
 class {'::dovecot::mail':
-  require => File['/etc/dovecot'],
 }
 
 # Postfix
