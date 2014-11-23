@@ -1,6 +1,11 @@
 ---
-xstreemfs::pkcs12_password: ''
-xstreemfs::keystore_password: ''
-xstreemfs::capability_secret: ''
-xstreemfs::dir_server: ''
+xtreemfs::service_cred::pwd:    ''
+xtreemfs::keystore_password:    ''
+xtreemfs::trusted_cred::pwd:    ''
+xtreemfs::settings::dir_server: ''
+xtreemfs::admin_password:       ''
+xtreemfs::checksums::algo:      ''
+
+fogmail::encfs_password: ''
+  
 postgresql_password: ''
