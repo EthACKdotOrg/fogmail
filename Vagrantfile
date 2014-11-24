@@ -10,8 +10,9 @@ puppet apply --hiera_config ./vagrant-hiera.yaml --modulepath=./modules $1.pp --
 "
 SCRIPT
 
+# vagrant box add vagrant-box-metadata.json
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ethack/basebox"
+  config.vm.box = "fogmail/basebox"
   config.vm.box_check_update = true
 
 

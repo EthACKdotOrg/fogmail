@@ -1,0 +1,13 @@
+{
+  "name": "fogmail/basebox",
+  "description": "This box contains Debian Jessie x86_64 with puppet and git",
+  "versions": [{
+    "version": "0.1.0",
+    "providers": [{
+      "name": "virtualbox",
+      "url": "https://box.fogmail.org/basebox-0.1.0.box",
+      "checksum_type": "sha1",
+      "checksum": "5034be9bf4018df711367881e570e70559b297a7"
+    }]
+  }]
+}
