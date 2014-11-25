@@ -119,3 +119,8 @@ Also, if you want to run "cleanDocker" script, ensure you don't have any of your
 
 ## Contribute
 Please feel free to contribute, using pull-requests.
+
+## Support
+We accept Bitcoins: 1Ht3t5yqqN7bADWWFCvhFDLXc4niLM3Ttc
+
+Contributions will most likely be redistributed to other opensource projects. Or use for some hosting. Or beers ;)
