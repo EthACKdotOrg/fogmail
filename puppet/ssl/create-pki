@@ -8,8 +8,8 @@
 # to get multiple sub-CA, revoke them whenever you want/need.
 
 # Ensure rights are correct on private directories
+mkdir -p ca/root-ca/{private,db} crl certs
 chmod 0700 ca/root-ca/private
-chmod 0700 ca/sub-ca/private
 
 # Create databases
 > ca/root-ca/db/root-ca.db
@@ -37,30 +37,37 @@ openssl ca -gencrl \
   -config etc/root-ca.conf \
   -out crl/root-ca.crl
 
-> ca/sub-ca/db/sub-ca.db
-> ca/sub-ca/db/sub-ca.db.attr
 
-echo 01 > ca/sub-ca/db/sub-ca.crt.srl
-echo 01 > ca/sub-ca/db/sub-ca.crl.srl
+# Create three sub-ca in order to manage right accesses
+for i in client common osd; do
 
-echo Create sub-CA
-openssl req -new \
-  -config etc/sub-ca.conf \
-  -out ca/sub-ca.csr \
-  -keyout ca/sub-ca/private/sub-ca.key
+  mkdir -p ca/${i}-ca/{private,db}
+  chmod 0700 ca/${i}-ca/private
 
-echo Sign sub-ca
-openssl ca \
-  -config etc/root-ca.conf \
-  -in ca/sub-ca.csr \
-  -out ca/sub-ca.crt \
-  -extensions signing_ca_ext
+  > ca/${i}-ca/db/${i}-ca.db
+  > ca/${i}-ca/db/${i}-ca.db.attr
 
-echo Create CRL
-openssl ca -gencrl \
-  -config etc/sub-ca.conf \
-  -out crl/sub-ca.crl
+  echo 01 > ca/${i}-ca/db/${i}-ca.crt.srl
+  echo 01 > ca/${i}-ca/db/${i}-ca.crl.srl
 
-echo Create bundle
-cat ca/sub-ca.crt ca/root-ca.crt > ca/sub-ca-chain.pem
+  echo Create ${i}-CA
+  openssl req -new \
+    -config etc/${i}-ca.conf \
+    -out ca/${i}-ca.csr \
+    -keyout ca/${i}-ca/private/${i}-ca.key
 
+  echo Sign ${i}-ca
+  openssl ca \
+    -config etc/root-ca.conf \
+    -in ca/${i}-ca.csr \
+    -out ca/${i}-ca.crt \
+    -extensions signing_ca_ext
+
+  echo Create CRL
+  openssl ca -gencrl \
+    -config etc/${i}-ca.conf \
+    -out crl/${i}-ca.crl
+
+  echo Create bundle
+  cat ca/${i}-ca.crt ca/root-ca.crt > ca/${i}-ca-chain.pem
+done
