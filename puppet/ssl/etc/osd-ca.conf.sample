@@ -1,5 +1,5 @@
 [ default ]
-ca                      = sub-ca                  # CA name
+ca                      = osd-ca                  # CA name
 dir                     = .                       # Top dir
 base_url                = https://pki.domain,org  # CA base URL
 aia_url                 = $base_url/$ca.cer       # CA certificate URL
