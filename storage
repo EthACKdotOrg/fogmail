@@ -1,6 +1,10 @@
 FROM ethack:base
 
 ADD puppet /
-RUN FACTER_virtual=Docker /scripts/configure storage
+ENV FACTER_virtual Docker
+ENV FACTER_hostname storage-1
+RUN /scripts/configure storage
+
+EXPOSE 32640 30640
 
 CMD ["/usr/local/sbin/startall"]

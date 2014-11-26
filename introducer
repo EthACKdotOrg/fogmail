@@ -1,7 +1,9 @@
 FROM ethack:base
 
 ADD puppet /
-RUN FACTER_virtual=Docker /scripts/configure introducer
+ENV FACTER_virtual Docker
+ENV FACTER_hostname introducer
+RUN /scripts/configure introducer
 
 EXPOSE 32636 32638
 
