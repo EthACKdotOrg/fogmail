@@ -12,7 +12,7 @@ certName=$(basename $2 .cnf)
 ca=$1
 
 openssl req -new \
-  -config $1 \
+  -config $2 \
   -out certs/${certName}.csr \
   -nodes
 openssl ca \
