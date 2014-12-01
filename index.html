@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="fogmail-ico.png" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="EthACK.org">
+    <meta name="description" content="Fogmail, a crypted decentralized mail infrastructure project and service.">
+    <meta name="keywords" content="fogmail, cloud, decentralized, mail, xtreemfs, gpg, cryptography, pop3s, imaps">
+
+    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+
+    <title>Fogmail — Because we don't want our emails in the clear.</title>
+  </head>
+  <body>
+    <a name="top"></a>
+    <a id="toTop" href="#top"></a>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><img src="/fogmail.png" alt=""></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#purpose"><span class="fa-cubes"></span> Purpose</a></li>
+            <li><a href="#key-features"><span class="fa-cog"></span> Features</a></li>
+            <li><a href="#get-started"><span class="fa-space-shuttle"></span> Get started</a></li>
+            <li><a href="https://github.com/ethackdotorg/fogmail"><span class="fa-github"></span> On Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container" role="main">
+      <div class="jumbotron">
+        <!--<p>
+        Coming soon. In your homes. In your data centers. Anywhere. Freely. Securely.
+        </p>-->
+        <div class="row hidden-xs hidden-sm">
+          <div class="col-md-4 animation-content">
+            <p class="jumboframe-1"></p>
+            <p class="jumboframe-2"></p>
+            <p class="jumboframe-3"></p>
+          </div>
+          <div class="col-md-8 main-title">
+            <h1>Fogmail</h1>
+            <p><i>Because we don't want our emails in the clear.</i></p>
+          </div>
+        </div>
+        <div class="hidden-lg hidden-md">
+          <h1>Fogmail</h1>
+          <p><i>Because we don't want our emails in the clear.</i></p>
+        </div>
+      </div>
+
+      <div class="content">
+        <h2><a name="purpose"></a><span class="fa-cubes"></span> Purpose</h2>
+        <div class="row">
+          <div class="col-md-6 alert alert-danger">
+            You all know emails. You all have at least one email address. You should also know some providers aren't that
+            "privy". They read your emails in order to know all about you. This allows them to submit ads. Among other things.
+          </div>
+          <div class="col-md-6 alert alert-success">
+            <b>With Fogmail</b>, you can get back your emails, thus <b>your communication privacy</b>. Freely. Securely.
+            <b>Your emails are kept encrypted</b>. By default. And we don't have any way to decrypt them.
+          </div>
+        </div>
+        <div class="row">
+          <div class="alert alert-danger col-md-6">
+            You know the email storage is centralized. All in one place. Whenever this place blows up, you lose all.
+          </div>
+          <div class="col-md-6 alert alert-success">
+            <b>With Fogmail, this can't happen</b>. Or, if this happen, we're pretty sure the loss of your email might be the smallest problem you might get.
+            Fogmail architecture ensure nothing is kept in one place. Using most modern technologies, we ensure <b>your emails are duplicated and stored across the
+            whole world</b>. Even in your very house. Because our design allows you to give some storage to the community.
+          </div>
+        </div>
+        <div class="row">
+          <div class="alert alert-danger col-md-6">
+            Most of you know how uneasy it is to build and manage a mail infrastructure. That's why most of you uses gmail, hotmail and other "mainstream providers".
+          </div>
+          <div class="col-md-6 alert alert-success">
+            <b>With Fogmail</b>, installing and managing a mail infrastructure becomes easy. <b>We provide receipts in order to deploy the different configurations</b>
+            so that you just have to use your infrastructure once it's ready.
+          </div>
+        </div>
+        <p>
+        The whole infrastructure is <b>redundant and scalable</b>. Should you need some more storage? Just add a raspberryPi with some USB drive. Needing some more mail server in
+        order to be able to serve people through the world? Just deploy an instance anywhere, register it to your main infra, and that's it. Replication is working out of the box.
+        </p>
+        <p>
+        <b>We will soon provide a service</b> you can use. Freely. Securely. So that you can see how it's working. Having the ability to deploy the exact same configuration on your own. We
+        don't want to be alone. Clone this infrastructure so that we get decentralization. The more you deploy Fogmail, the better we will be against mass surveillance.
+        </p>
+      </div>
+
+      <div class="content">
+        <h2><a name="key-features"></a><span class="fa-cog"></span> Key features</h2>
+        <div class="row">
+          <div class="col-md-6">
+            <h4><span class="fa fa-lock"></span>Security</h4>
+            <p>
+            We want the content to be <b>fully encrypted</b>. In order to do so, you'll be requested to either create or provide a public GPG key when you create an account. This will allow our mail system to
+            encrypt all your incoming emails. <b>Even if they aren't encrypted</b> when they were sent.<br>
+            This ensures nobody but you can access your mail content once they are in Fogmail. Does an attacker take advantage of some system flaw? Well, that's nasty, but he won't be able to harm you.
+            </p>
+            <p>
+            More over, as we're wanting people to provide storage, <b>we also encrypt the data on our side</b>. This prevent any metadata not encrypted by GPG to be encrypted. This means: storages cannot find anything.
+            </p>
+            <p>
+            <b>We focused on security in order to chose the applications, file system and configurations</b>. The system itself, based on Debian, enables automatic updates from Debian Security Repositories. This ensures
+            Fogmail runs on the latest application available, with the latest patches.
+            </p>
+            <p><b>Fogmail is built with security and stability in mind.</b></p>
+          </div>
+          <div class="col-md-6">
+            <h4><span class="fa fa-share-alt"></span>Decentralization</h4>
+            <p>
+            Using most modern applications and system features, we are able to (partialy) decentralize email service. We focused on the storage, using
+            <a href="http://xtreemfs.org/">XtreemFS</a>. This filesystem allows many things, among them:
+            </p>
+            <ul class="list-unstyled listing">
+              <li><span class="fa fa-copy"></span>Native replication</li>
+              <li><span class="fa fa-certificate"></span>Strong x509 authentication and SSL connections</li>
+              <li><span class="fa fa-share-alt"></span>Full decentralization</li>
+              <li><span class="fa fa-code-fork"></span>Multiple entry points</li>
+              <li><span class="fa fa-arrows-alt"></span>High scalability</li>
+            </ul>
+            <p>And many more features we're using for Fogmail.</p>
+            <p><b>Your data are safe. As the connections.</b></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4><span class="fa fa-code"></span>Open source and open to contributions</h4>
+            <p>
+            All the configuration receipts are <a href="https://github.com/ethackdotorg/fogmail">open source</a>. We only use open source software. This means <b>anyone can deploy Fogmail</b> at home in order to test it, play with it, break it. And contribute.<br>
+            You found a flaw in the configuration of some application? <a href="https://github.com/ethackdotorg/fogmail/issues">Submit an issue or a contribution with the correction</a>.<br>
+            You think a feature is missing? Well, implement it, and <a href="https://github.com/ethackdotorg/fogmail/pulls">submit your contribution</a>.
+            </p>
+            <p>
+            Even if you don't know how to configure Dovecot or Postfix, you can still help. Supporting the project for example. <a href="bitoin:1Ht3t5yqqN7bADWWFCvhFDLXc4niLM3Ttc">We take Bitcoins</a> ;).
+            </p>
+            <p>
+            That's also how a community works: by contributions in all sorts. Giving the possibility to anyone to help makes you important in the system.</p>
+            <p>
+            <b>You're not just a user. You're a contributor. A part of the whole system.</b>
+            </p>
+          </div>
+          <div class="col-md-6">
+            <h4><span class="fa fa-users"></span>Community</h4>
+            <p>
+            In order to live and provide a good experience, with a lot of storage, <b>we rely on a community</b>. Anybody can contribute with storage. Do you have some spare hard drive with some low-voltage computer, like
+            a RaspberryPi or Cubie? Great, <b>just deploy the storage configuration on it, plug it on the network and you're done</b>.
+            </p>
+            <p>
+            We focused on simplicity. So that <b>anyone can participate</b>. Allowing anyone to build his own system. Allowing you, people of the World, to take back your privacy.
+            </p>
+            <p><b>Being unit as a community makes us all stronger.</b></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4><span class="fa fa-key"></span>Multi factor authentication</h4>
+            <p>
+            A second authentication factor will be required. Either Google Auth or a Yubikey. And generated per-application password. So your accesses are safe. A connection log will be available from the management interface. Allowing
+            you to ensure only YOU access your account.<br>
+            Well, even if some nasty guy reaches your account he won't be able to do much due to the enforced encryption…
+            </p>
+            <p><b>Providing secure access makes you safer.</b></p>
+          </div>
+          <div class="col-md-6">
+            <h4><span class="fa fa-random"></span>Clonable</h4>
+            <p>
+            Fogmail was built with replication in mind. We want anyone (with some basic knowledge) to be able to reproduce our service. Hopefully many Fogmail will be deployed. This will allow global data decentralization.
+            </p>
+            <p><b>Being able to build your own infrastructure makes you free. Forever.</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <h2><a name="get-started"></a><span class="fa fa-space-shuttle"></span>Get started</h2>
+        <div class="alert alert-warning">
+          <h4><span class="fa fa-warning"></span>Note</h4>
+          <p>It is still a work in progress. There are still some issues with the receipts, especially regarding XtreemFS.</p>
+          <p>For now, it's only working as virtual machines/containers. <b>Nothing is production-ready!</b></p>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4><span class="fa fa-cubes"></span>Docker</h4>
+            <ul class="list-unstyled main">
+              <li><b>Follow</b> <a href="https://docs.docker.com/">Docker documentation</a> for installation.</li>
+              <li><b>Get the code</b><br>
+              <pre>$ git clone https://github.com/ethackdotorg/fogmail $ cd fogmail $ git submodule init $ git submodule update</pre>
+              </li>
+              <li>
+              <b>Create the PKI</b>
+              <ul class="list-unstyled awesome">
+                <li>create puppet/ssl/etc/client-ca.conf</li>
+                <li>create puppet/ssl/etc/common-ca.conf</li>
+                <li>create puppet/ssl/etc/osd-ca.conf</li>
+                <li>create puppet/ssl/etc/root-ca.conf</li>
+                <li>Run the script from puppet/ssl directory<br></li>
+              </ul>
+              <pre>$ ./create-pki</pre>
+              </li>
+              <li><b>Create some certificates</b>
+                <ul class="list-unstyled awesome">
+                  <li>introducer (signed by common-ca)</li>
+                  <li>mailserver (signed by common-ca)</li>
+                  <li>storage-1 (signed by osd-ca)</li>
+                </ul>
+                <pre>$ ./create-cert common introducer $ ./create-cert common mailserver $ ./create-cert osd storage-1</pre>
+              </li>
+              <li><b>Edit</b> puppet/hiera/common.yaml</li>
+              <li><b>Build the base image</b><br>
+              <pre>$ ./build base</pre>
+              </li>
+              <li><b>Build the Introducer</b><br>
+              <pre>$ ./build introducer</pre>
+              </li>
+              <li><b>Start the introducer</b><br>
+              <pre>$ ./run introducer</pre>
+              </li>
+              <li><b>Get the introducer IP</b><br>
+              <pre># ifconfig</pre>
+              </li>
+              <li><b>Set the introducer IP</b> in puppet/hiera/common.yaml</li>
+              <li><b>Create the two remaining images</b><br>
+              <pre>$ ./build mailserver $ ./build storage</pre>
+              </li>
+              <li><b>Start some storage</b><br>
+              <pre>$ ./run storage $ ./run storage …</pre>
+              </li>
+              <li><b>Start a mailserver</b><br>
+              <pre>$ ./run mailserver</pre>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h4><span class="fa fa-cogs"></span>Vagrant</h4>
+            <ul class="list-unstyled main">
+              <li><b>Follow</b> <a href="https://docs.vagrantup.com/v2/getting-started/index.html">Vagrant documentation</a> for installation</li>
+              <li><b>Get the code</b><br>
+              <pre>$ git clone https://github.com/ethackdotorg/fogmail $ cd fogmail $ git submodule init $ git submodule update</pre>
+              </li>
+              <li><b>Create the PKI</b>
+              <ul class="list-unstyled awesome">
+                <li>create puppet/ssl/etc/client-ca.conf</li>
+                <li>create puppet/ssl/etc/common-ca.conf</li>
+                <li>create puppet/ssl/etc/osd-ca.conf</li>
+                <li>create puppet/ssl/etc/root-ca.conf</li>
+                <li>Run the script from puppet/ssl directory<br>
+                </li>
+              </ul>
+              <pre>$ ./create-pki</pre>
+              </li>
+              <li><b>Create some certificates</b>
+                <ul class="list-unstyled awesome">
+                  <li>introducer (signed by common-ca)</li>
+                  <li>mailserver-1 (signed by common-ca)</li>
+                  <li>mailserver-2 (signed by common-ca)</li>
+                  <li>storage-1 (signed by osd-ca)</li>
+                  <li>storage-2 (signed by osd-ca)</li>
+                  <li>storage-3 (signed by osd-ca)</li>
+                  <li>storage-4 (signed by osd-ca)</li>
+                </ul>
+                <pre>$ ./create-cert common introducer $ ./create-cert common mailserver-1 $ ./create-cert osd storage-1 …</pre>
+              </li>
+              <li><b>Edit</b> puppet/hiera/common.yaml<br>
+              <span class="fa fa-warning"></span>Set Introducer IP to 192.168.50.2
+              </li>
+              <li><b>Get the base box</b><br>
+              <pre>$ vagrant box add vagrant-box-metadata.json</pre>
+              </li>
+              <li><b>Build the whole infra</b><br>
+              <pre>$ vagrant up</pre>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+    <div class="container">
+      <div class="copyr">
+        Fogmail 2014 <a href="https://creativecommons.org/licenses/by-sa/4.0/">cc-by-sa</a> — created by <a href="https://ethack.org/">EthACK.org</a>, the Swiss Privacy Basecamp.
+        A big thanks to <a href="http://remitaines.com/">MisteraiR</a> for the design and logo!
+      </div>
+    </div>
+    </footer>
+    <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(window).scroll(function() {
+        wintop = $(window).scrollTop();
+        if (wintop > 60) {
+          $('#toTop').show();
+        } else {
+          $('#toTop').hide();
+        }
+      });
+    </script>
+  </body>
+</html>
