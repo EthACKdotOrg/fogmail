@@ -96,27 +96,27 @@ class {'::postgresql::server':
   database    => 'mail',
   user        => 'mail',
   auth_method => 'password',
-}->
+}
 
 # Dovecot
 
-class {'::dovecot': 
-}
-class {'::dovecot::ssl':
-  ssl          => 'yes',
-  ssl_keyfile  => '/etc/dovecot/private/dovecot.pem',
-  ssl_certfile => '/etc/dovecot/dovecot.pem',
-}
-class {'::dovecot::postgres':
-  dbname     => 'mail',
-  dbusername => 'mail',
-  dbpassword => hiera('postgresql_password'),
-}
-class {'::dovecot::master':
-  postfix => yes,
-}
-class {'::dovecot::mail':
-}
+#class {'::dovecot': 
+#}
+#class {'::dovecot::ssl':
+#  ssl          => 'yes',
+#  ssl_keyfile  => '/etc/dovecot/private/dovecot.pem',
+#  ssl_certfile => '/etc/dovecot/dovecot.pem',
+#}
+#class {'::dovecot::postgres':
+#  dbname     => 'mail',
+#  dbusername => 'mail',
+#  dbpassword => hiera('postgresql_password'),
+#}
+#class {'::dovecot::master':
+#  postfix => yes,
+#}
+#class {'::dovecot::mail':
+#}
 
 # Postfix
 $postgresql_password = hiera('postgresql_password')
