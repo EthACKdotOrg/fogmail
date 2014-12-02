@@ -12,24 +12,32 @@ body {
   height:65px;
   text-align: center;
   transform: translate(5%, 65%);
+  -webkit-transform: translate(5%, 65%);
 }
 .jumboframe-1,.jumboframe-2,.jumboframe-3{
   animation-direction: normal;
   animation-duration: 12s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+  -webkit-animation-direction: normal;
+  -webkit-animation-duration: 12s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
   position: absolute;
   top:0;
   left:0;
 }
 .jumboframe-1{
   animation-name: jumbo1;
+  -webkit-animation-name: jumbo1;
 }
 .jumboframe-2{
   animation-name: jumbo2;
+  -webkit-animation-name: jumbo2;
 }
 .jumboframe-3{
   animation-name: jumbo3;
+  -webkit-animation-name: jumbo3;
 }
 
 .jumboframe-1:before,
@@ -78,6 +86,34 @@ body {
   100% {opacity:0}
 }
 @keyframes jumbo3 {
+  0%   {opacity:0}
+  15%  {opacity:0}/*1*/
+  30%  {opacity:0}
+  45%  {opacity:0}/*2*/
+  65%  {opacity:0}
+  80%  {opacity:1}/*3*/
+  100% {opacity:0}
+}
+
+@-webkit-keyframes jumbo1{
+  0%   {opacity:0}
+  15%  {opacity:1}/*1*/
+  30%  {opacity:0}
+  45%  {opacity:0}/*2*/
+  65%  {opacity:0}
+  80%  {opacity:0}/*3*/
+  100% {opacity:0}
+}
+@-webkit-keyframes jumbo2 {
+  0%   {opacity:0}
+  15%  {opacity:0}/*1*/
+  30%  {opacity:0}
+  45%  {opacity:1}/*2*/
+  65%  {opacity:0}
+  80%  {opacity:0}/*3*/
+  100% {opacity:0}
+}
+@-webkit-keyframes jumbo3{
   0%   {opacity:0}
   15%  {opacity:0}/*1*/
   30%  {opacity:0}
@@ -137,6 +173,7 @@ a:hover
 .navbar img {
   margin-top:-10px;
   transform: rotate(4deg);
+  -webkit-transform: rotate(4deg);
 }
 .container .jumbotron, .content {
   background-color:#ccc;
@@ -262,6 +299,7 @@ pre {
   }
   .animation-content {
     transform: translate(1%, 0);
+    -webkit-transform: translate(1%, 0);
   }
 }
 
