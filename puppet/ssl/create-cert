@@ -3,20 +3,21 @@
 # Create a certificate and sign it with sub-CA
 #
 
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 <client|osd|common> foo.cnf"
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 foo.cnf"
   exit 1
 fi
 
-certName=$(basename $2 .cnf)
-ca=$1
+certName=$(basename $1 .cnf)
 
-openssl req -new \
-  -config $2 \
-  -out certs/${certName}.csr \
-  -nodes
-openssl ca \
-  -config etc/${ca}-ca.conf \
-  -in certs/${certName}.csr \
-  -out certs/${certName}.crt \
-  -extensions server_ext
+for ca in client dir mrc osd; do
+  openssl req -new \
+    -config $1 \
+    -out certs/${certName}.csr \
+    -nodes
+  openssl ca \
+    -config etc/${ca}-ca.conf \
+    -in certs/${certName}.csr \
+    -out certs/${certName}.crt \
+    -extensions server_ext
+done

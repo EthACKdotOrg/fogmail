@@ -39,7 +39,7 @@ openssl ca -gencrl \
 
 
 # Create sub-ca in order to manage right accesses
-for i in common osd; do
+for i in client dir mrc osd; do
 
   mkdir -p ca/${i}-ca/{private,db}
   chmod 0700 ca/${i}-ca/private
