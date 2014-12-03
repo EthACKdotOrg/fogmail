@@ -208,7 +208,8 @@
               <b>Create the PKI</b>
               <ul class="list-unstyled awesome">
                 <li>create puppet/ssl/etc/client-ca.conf</li>
-                <li>create puppet/ssl/etc/common-ca.conf</li>
+                <li>create puppet/ssl/etc/dir-ca.conf</li>
+                <li>create puppet/ssl/etc/mrc-ca.conf</li>
                 <li>create puppet/ssl/etc/osd-ca.conf</li>
                 <li>create puppet/ssl/etc/root-ca.conf</li>
                 <li>Run the script from puppet/ssl directory<br></li>
@@ -217,11 +218,13 @@
               </li>
               <li><b>Create some certificates</b>
                 <ul class="list-unstyled awesome">
-                  <li>introducer (signed by common-ca)</li>
-                  <li>mailserver (signed by common-ca)</li>
+                  <li>introducer-dir (signed by dir-ca)</li>
+                  <li>introducer-mrc (signed by mrc-ca)</li>
+                  <li>mailserver (signed by client-ca)</li>
                   <li>storage-1 (signed by osd-ca)</li>
+                  <li><b>Note:</b> for now, all certificates are signed by all CA!</li>
                 </ul>
-                <pre>$ ./create-cert common introducer $ ./create-cert common mailserver $ ./create-cert osd storage-1</pre>
+                <pre>$ ./create-cert introducer-dir.cnf $ ./create-cert introducer-mrc.cnf $ ./create-cert mailserver.cnf $ ./create-cert storage-1.cnf</pre>
               </li>
               <li><b>Edit</b> puppet/hiera/common.yaml</li>
               <li><b>Build the base image</b><br>
@@ -258,25 +261,28 @@
               <li><b>Create the PKI</b>
               <ul class="list-unstyled awesome">
                 <li>create puppet/ssl/etc/client-ca.conf</li>
-                <li>create puppet/ssl/etc/common-ca.conf</li>
+                <li>create puppet/ssl/etc/dir-ca.conf</li>
+                <li>create puppet/ssl/etc/mrc-ca.conf</li>
                 <li>create puppet/ssl/etc/osd-ca.conf</li>
                 <li>create puppet/ssl/etc/root-ca.conf</li>
-                <li>Run the script from puppet/ssl directory<br>
+                <li>Run the script from puppet/ssl directory<br></li>
                 </li>
               </ul>
               <pre>$ ./create-pki</pre>
               </li>
               <li><b>Create some certificates</b>
                 <ul class="list-unstyled awesome">
-                  <li>introducer (signed by common-ca)</li>
-                  <li>mailserver-1 (signed by common-ca)</li>
-                  <li>mailserver-2 (signed by common-ca)</li>
+                  <li>introducer-dir (signed by dir-ca)</li>
+                  <li>introducer-mrc (signed by mrc-ca)</li>
+                  <li>mailserver-1 (signed by client-ca)</li>
+                  <li>mailserver-2 (signed by client-ca)</li>
                   <li>storage-1 (signed by osd-ca)</li>
                   <li>storage-2 (signed by osd-ca)</li>
                   <li>storage-3 (signed by osd-ca)</li>
                   <li>storage-4 (signed by osd-ca)</li>
+                  <li><b>Note:</b> for now, all certificates are signed by all CA!</li>
                 </ul>
-                <pre>$ ./create-cert common introducer $ ./create-cert common mailserver-1 $ ./create-cert osd storage-1 …</pre>
+                <pre>$ ./create-cert introducer-dir.cnf $ ./create-cert mailserver.cnf $ ./create-cert storage-1.cnf …</pre>
               </li>
               <li><b>Edit</b> puppet/hiera/common.yaml<br>
               <span class="fa fa-warning"></span>Set Introducer IP to 192.168.50.2
