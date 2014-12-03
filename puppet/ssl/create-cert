@@ -13,11 +13,12 @@ certName=$(basename $1 .cnf)
 for ca in client dir mrc osd; do
   openssl req -new \
     -config $1 \
-    -out certs/${certName}.csr \
+    -out certs/${ca}-${certName}.csr \
+    -keyout certs/${ca}-${certName}.key \
     -nodes
   openssl ca \
     -config etc/${ca}-ca.conf \
-    -in certs/${certName}.csr \
-    -out certs/${certName}.crt \
+    -in certs/${ca}-${certName}.csr \
+    -out certs/${ca}-${certName}.crt \
     -extensions server_ext
 done
