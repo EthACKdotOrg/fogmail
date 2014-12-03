@@ -11,11 +11,18 @@ fi
 certName=$(basename $1 .cnf)
 
 for ca in client dir mrc osd; do
-  openssl req -new \
-    -config $1 \
-    -out certs/${ca}-${certName}.csr \
-    -keyout certs/${ca}-${certName}.key \
-    -nodes
+  if [ -f certs/${certName}.key ]; then
+    openssl req -new \
+      -config $1 \
+      -out certs/${ca}-${certName}.csr \
+      -key certs/${certName}.key
+  else 
+    openssl req -new \
+      -config $1 \
+      -out certs/${ca}-${certName}.csr \
+      -keyout certs/${certName}.key \
+      -nodes
+  fi
   openssl ca \
     -config etc/${ca}-ca.conf \
     -in certs/${ca}-${certName}.csr \
