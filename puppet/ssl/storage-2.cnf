@@ -1,0 +1,31 @@
+# file managed by puppet
+#
+# SSLeay example configuration file.
+#
+
+RANDFILE                = $ENV::HOME/.rnd
+
+[ req ]
+default_bits            = 4096
+default_md              = sha256
+default_keyfile         = certs/storage-2.key
+distinguished_name      = req_distinguished_name
+prompt                  = no
+req_extensions          = v3_req
+
+[ req_distinguished_name ]
+countryName                     = CH
+stateOrProvinceName             = Vaud
+localityName                    = Lausanne
+organizationName                = EthACK.org
+organizationalUnitName          = Fogmail
+commonName                      = storage-2.fogmail.org
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = storage-2.fogmail.org
+DNS.2 = storage-2.fogmail.ch
