@@ -8,6 +8,11 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
+if [ ! -f $1 ]; then
+  echo "Missing configuration file: ${1}";
+  exit 1;
+fi
+
 certName=$(basename $1 .cnf)
 
 for ca in client dir mrc osd; do
