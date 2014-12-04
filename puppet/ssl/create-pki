@@ -7,6 +7,19 @@
 # You just have to add the root CA to JKS, allowing
 # to get multiple sub-CA, revoke them whenever you want/need.
 
+## Check if we have the configuration files
+error=0;
+for i in root client dir mrc osd; do
+  if [ ! -f etc/${i}-ca.conf ]; then
+    error=1;
+    echo "Missing SSL configuration file: etc/${i}-ca.conf"
+  fi
+done
+
+if [ $error -ne 0 ]; then
+  exit 1;
+fi
+
 # Ensure rights are correct on private directories
 mkdir -p ca/root-ca/{private,db} crl certs
 chmod 0700 ca/root-ca/private
