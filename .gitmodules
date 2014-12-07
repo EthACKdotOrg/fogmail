@@ -64,3 +64,6 @@
 [submodule "puppet/modules/openssl"]
 	path = puppet/modules/openssl
 	url = https://github.com/camptocamp/puppet-openssl
+[submodule "puppet/modules/fogstore"]
+	path = puppet/modules/fogstore
+	url = https://github.com/EthACKdotOrg/puppet-fogstore.git
